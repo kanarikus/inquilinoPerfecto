@@ -1,0 +1,5 @@
+.homelist {
+    display: flex;
+    justify-content: space-around;
+    margin: 5px 10px;
+}
