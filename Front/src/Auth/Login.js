@@ -1,28 +1,33 @@
 import {useState} from 'react'
-import {login} from '../api'
-import {useHistory} from 'react-router-dom'
-import { useLogin } from '../LoginContext'
+import {Link, Redirect} from 'react-router-dom'
+import {useDispatch,useSelector} from 'react-redux'
 
 function Login () {
-    const [error,setError] = useState(false)
-    const [email,setMail] = useState('')
+    const [email,setEmail] = useState('')
     const [password,setPassword] = useState('')
-    const [,setLogin] = useLogin()
+    const [error,setError] = useState(false)
 
-    const history = useHistory()
+    const login = useSelector(s=>s.login)
+    const dispatch = useDispatch()
 
     const handleSubmit = async e =>{
         e.preventDefault()
-        try{
-            const data = await login(email,password);
+        try {
+            const res = await fetch('http://localhost:9999/login',{
+            headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({email,password}),
+            method: 'POST'
+            })
+            const data = await res.json()
+            dispatch({type:'login',data})
             console.log(data)
-            setLogin(data)
-            history.push('/')
         }catch(e) {
             console.warn(e)
             setError(true)
         }
+        
     }
+    if(login) return <Redirect to="/"/>
 
     return(
         <form onSubmit={handleSubmit}>
@@ -30,7 +35,7 @@ function Login () {
                 email:
                 <input value={email}
                 required
-                onChange = {e=>setMail(e.target.value)}/>
+                onChange = {e=>setEmail(e.target.value)}/>
             </label>
             <label>
                 Contraseña:
@@ -44,6 +49,9 @@ function Login () {
                     Usuario o contraseña incorrecto
                 </div>
             }
+            <div>
+                <Link to="/recovery">No recuerdas tu contraseña?</Link>
+            </div>
         </form>
     )
 }

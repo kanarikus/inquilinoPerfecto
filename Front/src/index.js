@@ -4,15 +4,25 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'
-import { LoginProvider } from './LoginContext';
+import {Provider} from 'react-redux'
+import {createStore,combineReducers} from 'redux'
+import loginReducer from './store/loginReducer'
+import registerReducer from './store/registerReducer'
+
+const rootReducer = combineReducers({
+  login: loginReducer,
+  register: registerReducer
+})
+
+const store = createStore(rootReducer)
 
 ReactDOM.render(
   <React.StrictMode>
-    <LoginProvider>
+    <Provider store={store}>
       <Router>
         <App />
       </Router>
-    </LoginProvider>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 );
