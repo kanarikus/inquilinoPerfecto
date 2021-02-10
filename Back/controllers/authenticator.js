@@ -54,7 +54,7 @@ const login = async (req, res) => {
     //    - comprobar que están en BBDD y coinciden
     const {email, password} = req.body
     const user = await db.getUser(email)
-
+    const nombre = user.email
 
     if (!user) {
         res.status(401).send()
@@ -80,7 +80,8 @@ const login = async (req, res) => {
     });
 
     res.json({
-        token
+        token,
+        nombre
     })
 }
 

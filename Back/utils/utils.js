@@ -34,8 +34,8 @@ const sendRecoverPassword = async (email, code) => {
       html: `
       <div>
         <h1> Valida tu registro </h1>
-        <p> Si te has registrado en el sistema, accede al siguiente
-        enlace para validar tu cuenta </p>
+        <p> Si te has olvidado tu contraseña y pedido un reinicio
+         de contraseña accede al link, si no ignora el mensaje </p>
 
         ${code}
       </div>
