@@ -23,6 +23,30 @@ const sendConfirmationMail = async (email, link) => {
     await sendgrid.send(message);
 }
 
+const sendRecoverPassword = async (email, code) => {
+  sendgrid.setApiKey(process.env.EMAIL_API_KEY);
+
+  const message = {
+      to: email,
+      from: 'tony_balu@hotmail.com',
+      subject: 'Validate your account',
+      text: `La dirección de verificación es: ${code}`,
+      html: `
+      <div>
+        <h1> Valida tu registro </h1>
+        <p> Si te has registrado en el sistema, accede al siguiente
+        enlace para validar tu cuenta </p>
+
+        ${code}
+      </div>
+    `,
+  };
+
+  // Enviar mensaje
+  await sendgrid.send(message);
+}
+
 module.exports = {
-    sendConfirmationMail
+    sendConfirmationMail,
+    sendRecoverPassword
 }

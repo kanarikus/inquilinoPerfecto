@@ -63,7 +63,7 @@ app.post('/login',login)
 
 app.delete('/usuario/:id',isAuthenticated,isSameUser,deleteUser)
 app.put('/usuario/:id',isAuthenticated,isSameUser,updateUser)
-app.get('/usuario/validar/:code',isAuthenticated,isSameUser,isAdmin,validate)
+app.get('/usuario/validar/:code',validate)
 app.put('/usuario/:id/password',updateUserPassword)
 app.post('/usuario/recover-password',recoverPassword)
 app.put('/usuario/password/reset/:code',resetPassword)

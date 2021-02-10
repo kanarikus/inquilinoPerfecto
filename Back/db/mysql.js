@@ -109,12 +109,15 @@ const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fe
             const checkIn = dateToDB(fecha_entrada)
             const checkOut = dateToDB(fecha_salida)
             conditions.push(`fecha_entrada not between ? and ?
-            and fecha_salida not between ? and ?`)
+            and fecha_salida not between ? and ? and not(fecha_entrada<? and fecha_salida>?)`)
             params.push(
                 `${checkIn}`,
                 `${checkOut}`,
                 `${checkIn}`,
-                `${checkOut}`);
+                `${checkOut}`,
+                `${checkIn}`,
+                `${checkOut}`
+                );
         }
         if(m2) {
             conditions.push(`m2>=?`)

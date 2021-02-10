@@ -83,7 +83,7 @@ const recoverPassword = async (req, res) => {
         await db.getUser(email)
         const passwordUpdateCode = randomstring.generate(40);
         await db.recoverPasswordQ(passwordUpdateCode,email)
-        utils.sendConfirmationMail(email,`http://${process.env.PUBLIC_DOMAIN}/usuario/password/reset/${passwordUpdateCode}`)
+        utils.sendConfirmationMail(email,passwordUpdateCode)
 
 
     }catch(e) {

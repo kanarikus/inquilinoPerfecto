@@ -42,7 +42,7 @@ const validate = async (req, res) => {
 
     try {
         db.checkValidationCode(code)
-        res.send('Validado correctamente')
+        res.send('validado correctamente')
     } catch(e) {
         res.status(401).send('Usuario no validado')
 } 

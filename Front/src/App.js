@@ -3,18 +3,14 @@ import Home from './Home/Home'
 import { Switch, Route, NavLink, Link } from 'react-router-dom';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
-import Recovery from './Auth/recovery';
+import Recovery from './Auth/Recovery';
 import Reset from './Auth/Reset';
+import Header from './Header';
 
 function App() {
   return (
     <div className="App">
-      <header>
-        <Link to="/">Logo</Link>
-        <div>
-          <NavLink active="active" to="/login">Iniciar Sesión</NavLink>
-        </div>
-      </header>
+      <Header/>
       <Switch>
         <Route path="/" exact>
           <Home/>

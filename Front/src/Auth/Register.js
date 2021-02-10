@@ -1,35 +1,34 @@
 import {useState} from 'react'
-import {useDispatch,useSelector} from 'react-redux'
-import { Redirect } from 'react-router-dom'
+// import {useDispatch,useSelector} from 'react-redux'
+// import { Redirect } from 'react-router-dom'
 
 
 function Register() {
 
-    const dispatch = useDispatch()
-    const register = useSelector(r=>r.register)
+    //const dispatch = useDispatch()
+    //const register = useSelector(r=>r.register)
     const [user,setUser] = useState({})
     const [error,setError] = useState()
 
     const handleSubmit = async e => {
         e.preventDefault()
         try{
-            const res = await fetch('http://localhost:9999/usuario',{
+            await fetch('http://localhost:9999/usuario',{
                 method:'POST',
                 headers:{'Content-Type':'application/json'},
                 body:JSON.stringify(user)
             })
-            const data = await res.json()
             setUser('')
-            dispatch({type:'register',data})
         }catch(e) {
             console.warn(e)
             setError(true)
         }
     }
-    if(register) return <Redirect to="/"/>
+
 
     return(
         <form onSubmit={handleSubmit}>
+            <h3>Regístrate!</h3>
             <input name="email"
             required
             placeholder="email..."

@@ -29,7 +29,7 @@ async function main() {
       telf varchar(20),
       image varchar(500),
       score float,
-      estado enum('Activo','Inactivo') not null,
+      estado enum('Activo','Inactivo') not null default 'Inactivo',
       descripcion text,
       role enum('usuario','admin') not null default 'usuario',
       updateDate timestamp default current_timestamp
@@ -172,9 +172,9 @@ async function main() {
       const score_usuario = random(0,5)
       const estado = faker.random.arrayElement(['aceptado','pendiente','declinado'])
       const precio = random(200,1000)
-      const fecha_entrada = faker.date.soon();
+      const fecha_entrada = faker.date.future();
       const fecha_entradaDB = dateToDB(fecha_entrada)
-      const fecha_salida = sevenDays(fecha_entradaDB)
+      const fecha_salida = sevenDays(fecha_entrada)
  
       await connection.query(`
       insert into reserva(
