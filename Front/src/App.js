@@ -1,11 +1,12 @@
 import './App.css';
 import Home from './Home/Home'
-import { Switch, Route, NavLink, Link } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
 import Login from './Auth/Login';
 import Register from './Auth/Register';
 import Recovery from './Auth/Recovery';
 import Reset from './Auth/Reset';
 import Header from './Header';
+import Search from './Search/Search'
 
 function App() {
   return (
@@ -24,6 +25,9 @@ function App() {
         </Route>
         <Route path="/recovery/:code" exact> 
           <Reset/>
+        </Route>
+        <Route path='/search/:ciudad'>
+          <Search/>
         </Route>
       </Switch> 
     </div>

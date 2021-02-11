@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react'
-import {useLogin} from './LoginContext'
+import { useSelector } from 'react-redux'
 
-function useFetch(url) {
+function useFetch(url,key) {
     const [data, setData] = useState()
-    const [login] = useLogin()
+    const login = useSelector(s=>s.login)
     useEffect(() => {
       const opts = {}
       if(login) {
@@ -14,7 +14,7 @@ function useFetch(url) {
         .then(data => {
           setData(data)
         })
-    }, [url,login])
+    }, [url,key,login])
     return data
 }
 
