@@ -5,12 +5,11 @@ function Reset() {
     const {code} = useParams()
     const [password,setPassword] = useState('')
     const [sent,setSent] = useState(false)
-
     const handleSubmit= async e=> {
         e.preventDefault()
-        await fetch('http://localhost:9999/usuario/password/reset/'+ code,{
+        await fetch(`http://localhost:9999/usuario/password/reset/${code}`,{
             headers:{'Content-Type':'application/json'},
-            body:JSON.stringify({password,code}),
+            body: JSON.stringify({password}),
             method:'PUT'
         })
         setSent(true)
@@ -24,7 +23,7 @@ function Reset() {
     
     return(
         <form className='password reset' onSubmit={handleSubmit}>
-            Introduce tu nueva contraseña payaso
+            Introduce tu nueva contraseña
             <div>
                 <input placeholder='Contraseña...' type='password' required
                 value={password} onChange={e=>setPassword(e.target.value)}/>

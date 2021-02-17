@@ -7,9 +7,9 @@ function useFetch(url,key) {
     useEffect(() => {
       const opts = {}
       if(login) {
-        opts.headers = {'Authorization':'Bearer '+login.token}
+        opts.headers = {'Authorization':login.token}
       }
-      fetch(url)
+      fetch(url,opts)
         .then(res => res.json())
         .then(data => {
           setData(data)

@@ -1,0 +1,18 @@
+.tabs {
+    display: flex;
+    margin: 20px 10px 50px;
+    position: relative;
+}
+.tabs a{
+    border: 1px solid #aaa;
+    border-bottom: 1px solid #eee;
+    padding:  8px 5px;
+    background-color: #ccc;
+}
+
+.tabs .active{
+    background-color: white;
+}
+.tabs :hover{
+    cursor: pointer;
+}

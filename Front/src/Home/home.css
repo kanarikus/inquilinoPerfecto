@@ -1,5 +1,32 @@
+
+.lalanding{
+   height: 100vh;
+    width: 100%;
+    object-fit: contain;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+}
+
+
+.lalanding video {
+    object-fit: cover;
+    width: 100%;
+    height: 70vh;
+    position: absolute;
+    z-index: -1;
+}
+
 .homelist {
     display: flex;
     justify-content: space-around;
     margin: 5px 10px;
 }
+.all-mainsearch {
+    color: white;
+}
+.mainsearch h1 {
+    margin: 0;
+}
+

@@ -9,10 +9,10 @@ function MainSearch() {
 
     const handleSubmit = async e=> {
         e.preventDefault()
-        history.push(`/search/${ciudad}`) 
+        history.push(`/search/${ciudad}?foo=bar&asd=123`)
     }
     return (
-        <div>
+        <div className='mainsearch'>
             <h1>Encuentra tu hogar ideal</h1>
             <form onSubmit={handleSubmit}>
                 <label>

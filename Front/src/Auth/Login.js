@@ -36,12 +36,14 @@ function Login () {
                 email:
                 <input value={email}
                 required
+                type='email'
                 onChange = {e=>setEmail(e.target.value)}/>
             </label>
             <label>
                 Contraseña:
                 <input value={password}
                 required
+                type='password'
                 onChange = {e => setPassword(e.target.value)}/>
             </label>
             <button >Log in</button>

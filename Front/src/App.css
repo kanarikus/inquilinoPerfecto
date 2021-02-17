@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'quicksandlight';
+  src: url('./fonts/quicksand-variablefont_wght-webfont.woff2') format('woff2'),
+       url('./fonts/quicksand-variablefont_wght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lobster_twobold_italic';
+  src: url('./fonts/quicksand-variablefont_wght-webfont.woff2') format('woff2'),
+       url('./fonts/quicksand-variablefont_wght-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
+@font-face {
+  font-family: 'lobster_twoitalic';
+  src: url('./fonts/lobstertwo-italic-webfont.woff2') format('woff2'),
+       url('./fonts/lobstertwo-italic-webfont.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+
+}
+
 .App {
   text-align: center;
 }
@@ -7,32 +34,57 @@
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
 .App-link {
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+.headerContainer {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  background-color: rgb(243, 212, 33);
 }
+.headerContainer div{
+  padding: 10px;
+}
+
+.main-logo{
+  margin-top: 0;
+  background: url('./img/logo.svg') no-repeat;
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  padding: 0;
+}
+.headerContainer h1 {
+  margin: 0;
+  margin-left: 7vw;
+}
+.loginContainer {
+  width: 300px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: flex-start;
+}
+.mainsearch{
+  font-family: 'lobster_twobold_italic';
+  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.mainsearch form{
+  font-style: italic;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mainsearch form button{
+  margin-top: 20px;
+  height: 24px;
+  width: 152px;
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: 10px
+}
+
