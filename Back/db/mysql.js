@@ -52,22 +52,30 @@ const deleteUserById = async(id)=>{
     await performQuery(query,params)
 }
 
-const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario) => {
-    const query = `INSERT INTO piso(fecha_publicacion,direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario)
-    VALUES(UTC_TIMESTAMP,?,?,?,?,?,?,?,?)`
-    const params = [direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario]
+const getUserId = async(id) =>{
+    const query = `select * from usuario where id = ?`
+    const params = [id]
+    const [result] =await performQuery(query,params)
+    return result
+}
 
-    await performQuery(query,params)
+const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon) => {
+    const query = `INSERT INTO piso(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon)
+    VALUES(UTC_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?)`
+    const params = [direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon]
+
+    const result =await performQuery(query,params)
+    return result
 }
 
 const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fecha_salida,m2,habitaciones,baños,garaje,ascensor,balcon,jardin,direction,order) => {
-    let queryVar = "select * from piso left outer join reserva on reserva.id_piso = piso.id"
+    let queryVar = "select p.id,p.direccion,p.habitaciones,p.precio_piso,p.ciudad from piso p left outer join reserva r on r.id_piso = p.id"
     const params=[]
     const orderDirection = (direction && direction.toLowerCase())==="asc"?"ASC":"DESC"
     let orderBY
     switch (order) {
-        case "precio":
-            orderBY="precio"
+        case "precio_piso":
+            orderBY="precio_piso"
             break;
         case "fecha_publicacion":
             orderBY="fecha_publicacion"
@@ -88,19 +96,19 @@ const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fe
         }
         if(ciudad){
             conditions.push(`ciudad LIKE ?`)
-            params.push(`${ciudad}`)
+            params.push(`%${ciudad}%`)
         }
         if(precio1||precio2){
             if(!precio1) {
-                conditions.push(`precio <= ?`)
+                conditions.push(`precio_piso <= ?`)
                 params.push(`${precio2}`)
             }
             if(!precio2) {
-                conditions.push(`precio >= ?`)
+                conditions.push(`precio_piso >= ?`)
                 params.push(`${precio1}`)
             }
             if(precio1&&precio2) {
-                conditions.push(`precio BETWEEN ? and ?`)
+                conditions.push(`precio_piso BETWEEN ? and ?`)
                 params.push(`${precio1}`,`${precio2}`) 
             }
             
@@ -148,7 +156,8 @@ const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fe
             params.push(`${jardin}`)
         }
     }
-    query=`${queryVar} WHERE ${conditions.join(` AND `)} ORDER BY ${orderBY} ${orderDirection}`
+    
+    query=`${queryVar} WHERE ${conditions.join(` AND `)} group by p.id ORDER BY ${orderBY} ${orderDirection}`
     console.log(query,params)
     const [...result] = await performQuery(query,params)
     return result
@@ -176,6 +185,11 @@ const saveHomeImageQ = async(fileID,id)=>{
     await performQuery(query,params)
 }
 
+const saveUserImage = async(fileID,id) => {
+    const query = `update usuario set image=? where id=?`
+    const params = [fileID,id]
+    await performQuery(query,params)
+}
 
 const deleteHome = async(id) => {
     const query = `delete from piso where id=?`
@@ -183,7 +197,7 @@ const deleteHome = async(id) => {
     await performQuery(query,params)
 }
 
-const updateHomeQ = async (direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario,id) => {
+const updateHomeQ = async (direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,id) => {
     //let eventDate = moment.unix(timestamp)
 
     const query = `
@@ -191,20 +205,21 @@ const updateHomeQ = async (direccion,provincia,ciudad,precio,m2,habitaciones,ba�
     direccion = ?,
     provincia = ?,
     ciudad = ?,
-    precio = ?,
+    precio_piso = ?,
     m2 = ?,
     habitaciones =?,
     baños=?,
     id_usuario=?
     where id = ?`
 
-    const params = [direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario,id]
+    const params = [direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,id]
     await performQuery(query, params)
 }
 
 const updateUser= async(nombre,apellidos,provincia,ciudad,telf,descripcion,id) =>{
     const query = `
-    update usuario set nombre =?,
+    update usuario set
+    nombre =?,
     apellidos=?,
     provincia=?,
     ciudad=?,
@@ -223,14 +238,16 @@ const checkValidationCode = async (code) => {
     const params = [code]
 
     const [result] = await performQuery(query, params)
-
-    if (result) {
+    try{
+        if (result) {
         const query = `update usuario set estado = 'Activo', validationCode = ''`
-        await performQuery(query, [])
-    } else {
+        await performQuery(query, [])}
+    }catch(e){
+        console.log(e)
         throw new Error('validation-error')
     }
-
+        
+        
 }
 
 const recoverPasswordQ = async(validationCode,email) => {
@@ -242,12 +259,13 @@ const recoverPasswordQ = async(validationCode,email) => {
 const resetPassword = async(password,validationCode) => {
     const query = `update usuario set password=? where validationCode=?`
     const params = [password,validationCode]
+    await performQuery(query,params)
 }
 
 const createbooking = async (id_piso,id_usuario,fecha_entrada,fecha_salida) => {
-    const query = `insert into reserva (id_piso,id_usuario,precio) 
-        values (?,?,(select precio from piso where id=?))`
-    const params = [id_piso,id_usuario,id_piso]
+    const query = `insert into reserva (id_piso,id_usuario,fecha_entrada,fecha_salida,precio_reserva) 
+        values (?,?,?,?,(select precio_piso from piso where id=?))`
+    const params = [id_piso,id_usuario,fecha_entrada,fecha_salida,id_piso]
     await performQuery(query,params)
 }
 
@@ -265,7 +283,16 @@ const deletebooking = async(id) => {
 }
 
 const getListOfBooking = async(id) => {
-    const query = `select * from reserva where id_usuario=?`
+    const query = `select r.id_reserva,
+	r.id_usuario,
+    p.id,
+    p.direccion,
+    p.ciudad,
+    r.precio_reserva,
+    r.fecha_entrada,
+    r.fecha_salida
+    from reserva r join piso p on r.id_piso = p.id
+    where r.id_usuario=? group by r.id_reserva`
     const params = [id]
     const [...result] = await performQuery(query,params)
     return result
@@ -309,6 +336,13 @@ const checkUpdateCode = async (code) => {
     }
 }
 
+const myHomes = async(id) => {
+    const query = `select * from piso where id_usuario = ?`
+    const params = [id]
+    const [...result] = await performQuery(query,params)
+    return result
+}
+
 module.exports = {
     checkUpdateCode,
     checkValidationCode,
@@ -322,7 +356,9 @@ module.exports = {
     getListOfBooking,
     getHome,
     getUser,
+    getUserId,
     listHomes,
+    myHomes,
     updateHomeQ,
     updateUser,
     updateUserPassword,
@@ -332,5 +368,6 @@ module.exports = {
     scoreHome,
     scoreUser,
     saveHomeImageQ,
+    saveUserImage,
     search
 }

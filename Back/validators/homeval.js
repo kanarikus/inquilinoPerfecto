@@ -8,7 +8,6 @@ const homeValidator = Joi.object({
                 new Error('La dirección debe contener al menos 5 caracteres')
             ),
     provincia:Joi.string()
-                .valid('Pontevedra','Lugo','Orense','Coruña')
                 .required()
                 .min(3)
                 .error(
@@ -38,22 +37,19 @@ const homeValidator = Joi.object({
                     ),
     baños:Joi.number()
                 .required()
+                .integer()
                 .error(
                     new Error('los baños deben estar en formato numérico')
                 ),
-    garaje:Joi.valid('si','no'),
-    ascensor:Joi.valid('si','no'),
-    jardin:Joi.valid('si','no'),
+    garaje:Joi.string().valid('si','no'),
+    ascensor:Joi.string().valid('si','no'),
+    jardin:Joi.string().valid('si','no'),
+    balcon:Joi.string().valid('si','no'),
     descripcion:Joi.string()
                     .max(500)
                     .error(
                         new Error('la descripción no puede exceder los 500 caracteres')
                     ),
-    id_usuario:Joi.number()
-                    .required()
-                    .error(
-                        new Error('mal id usuario')
-                    )
 })
 
 module.exports={

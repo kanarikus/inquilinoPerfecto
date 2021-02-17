@@ -3,7 +3,9 @@ const bcrypt = require('bcrypt');
 const randomstring=require("randomstring")
 const jwt = require('jsonwebtoken');
 const utils = require('../utils/utils')
-const { updateUserValidator,authValidator } = require('../validators/auth')
+const uuid = require('uuid');
+const fsPromises = require('fs').promises
+const { updateUserValidator,authValidator} = require('../validators/auth')
 
 
 const deleteUser = async(req,res) => {
@@ -24,6 +26,9 @@ const deleteUser = async(req,res) => {
 }
 
 const updateUser = async (req,res) => {
+    const {id} = req.params
+    const user = await db.getUserId(id)
+
     const {
         nombre,
         apellidos,
@@ -32,13 +37,21 @@ const updateUser = async (req,res) => {
         telf,
         descripcion
     } = req.body
-    const {id} = req.params
+    
+    if(req.files) {
+        const fileID = uuid.v4()
+        const outputFileName = `${process.env.TARGET_FOLDER}/${fileID}.jpg`
+        console.log(req.files)
+        await fsPromises.writeFile(outputFileName,req.files.image.data)
+        await db.saveUserImage(fileID,id)
+        res.send()
+    }
     try{
-        await updateUserValidator.validateAsync(req.body)
+        //await updateUserValidator.validateAsync(req.body)
         await db.updateUser(nombre,apellidos,provincia,ciudad,telf,descripcion,id)
     }catch(e){
         let statusCode = 400;
-    
+        console.log(e)
         if (e.message === 'database-error') {
             statusCode = 500
         }
@@ -46,7 +59,7 @@ const updateUser = async (req,res) => {
         res.status(statusCode).send(e.message)
         return
     }
-    res.send()
+    res.send({...user,password:'*'})
 }
 
 
@@ -83,7 +96,7 @@ const recoverPassword = async (req, res) => {
         await db.getUser(email)
         const passwordUpdateCode = randomstring.generate(40);
         await db.recoverPasswordQ(passwordUpdateCode,email)
-        utils.sendRecoverPassword(email,passwordUpdateCode)
+        utils.sendRecoverPassword(email,`http://${process.env.FRONT_DOMAIN}/recovery/${passwordUpdateCode}`)
 
 
     }catch(e) {
@@ -100,7 +113,6 @@ const recoverPassword = async (req, res) => {
 
 const resetPassword = async (req, res) => {
     try {
-        await passwordValidator.validateAsync(req.body)
 
         const { code } = req.params
         const { password } = req.body
@@ -113,6 +125,7 @@ const resetPassword = async (req, res) => {
 
         res.send('Su contraseña se ha actualizado')
     } catch (e) {
+        console.log(e)
         res.status(403).send('Usuario no validado')
     }
     res.send()

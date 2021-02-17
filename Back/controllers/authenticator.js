@@ -27,7 +27,7 @@ const register = async (req, res) => {
 
         await db.register(email, passwordBcrypt, ciudad,validationCode)
         
-        utils.sendConfirmationMail(email,`http://${process.env.PUBLIC_DOMAIN}/usuario/validar/${validationCode}`)
+        utils.sendConfirmationMail(email,`http://${process.env.FRONT_DOMAIN}/validate/${validationCode}`)
     } catch (e) {
         console.log(e)
         res.status(400).send()
@@ -55,6 +55,7 @@ const login = async (req, res) => {
     const {email, password} = req.body
     const user = await db.getUser(email)
     const nombre = user.email
+    const id = user.id
 
     if (!user) {
         res.status(401).send()
@@ -81,14 +82,23 @@ const login = async (req, res) => {
 
     res.json({
         token,
-        nombre
+        nombre,
+        id
     })
 }
 
-
+const getUserById = async(req,res) => {
+    const {id} = req.params
+    const user = await db.getUserId(id)
+    if(!user) {
+        res.status(402).send()
+    }
+    res.send(user)
+}
 
 module.exports = {
     login,
     register,
-    validate
+    validate,
+    getUserById
 }

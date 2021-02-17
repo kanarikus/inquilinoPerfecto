@@ -1,3 +1,4 @@
+const { object } = require('joi');
 const Joi = require('joi');
 
 const authValidator = Joi.object({
@@ -42,6 +43,7 @@ const updateUserValidator = Joi.object({
         new Error('la descripción debe contener entre 10 y 600 caracteres')
     )
 })
+
 
 module.exports = {
     authValidator,

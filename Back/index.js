@@ -28,6 +28,7 @@ const {
     getHome,
     getlistOfHomes,
     updateHome,
+    userHomes,
     SaveHomeImage,
     searchHomes
 } = require('./controllers/homes')
@@ -35,7 +36,8 @@ const {
 const{
     register,
     login,
-    validate
+    validate,
+    getUserById
 } = require('./controllers/authenticator')
 
 const{
@@ -50,7 +52,7 @@ const{
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(fileUpload());
-app.use('/imagen',express.static(__dirname+'/imagen'));
+app.use('/imagen',express.static(__dirname+'/images'));
 app.use(cors())
 
 const DEFAULT_PORT = 3333
@@ -60,13 +62,14 @@ const currentPort = process.env.PORT || DEFAULT_PORT
 app.post('/usuario',register)
 app.post('/login',login)
 
-
+app.get('/usuario/:id',isAuthenticated,isSameUser,getUserById)
 app.delete('/usuario/:id',isAuthenticated,isSameUser,deleteUser)
 app.put('/usuario/:id',isAuthenticated,isSameUser,updateUser)
 app.get('/usuario/validar/:code',validate)
-app.put('/usuario/:id/password',updateUserPassword)
+app.put('/usuario/:id/password',isAuthenticated,isSameUser,updateUserPassword)
 app.post('/usuario/recover-password',recoverPassword)
 app.put('/usuario/password/reset/:code',resetPassword)
+app.get('/usuario/vivienda/:id',isAuthenticated,isSameUser,userHomes)
 
 app.get('/vivienda/imagen/:uuid', getImage = async(req,res) => {
 const { uuid } = req.params
@@ -81,10 +84,10 @@ const { uuid } = req.params
 })
 
 app.get('/vivienda/busqueda',searchHomes)
-app.post('/vivienda/imagen/:uuid',SaveHomeImage)
+app.post('/vivienda/imagen/:id',SaveHomeImage)
 app.post('/vivienda',isAuthenticated,createHome)
 app.get('/vivienda',getlistOfHomes)
-app.get('/vivienda/:id',isAuthenticated,getHome)
+app.get('/vivienda/:id',getHome)
 app.delete('/vivienda/:id',deleteHome)
 app.put('/vivienda/:id',updateHome)
 

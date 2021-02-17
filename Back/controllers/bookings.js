@@ -13,7 +13,7 @@ const booking = async (req,res) => {
         console.log(id_usuario)
         await db.createbooking(
             id_piso,
-            id_usuario.id,
+            parseInt(id_usuario.id),
             fecha_entrada,
             fecha_salida
         )
@@ -51,6 +51,7 @@ const deletebooking = async(req,res) => {
 
 const getListOfBooking = async(req,res) => {
     const {authorization} = req.headers
+    console.log(authorization)
     try {
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const id_usuario= await db.getUser(decodedToken.email)

@@ -9,7 +9,9 @@ const sharp = require("sharp")
 const {homeValidator} = require('../validators/homeval')
 
 const createHome = async (req, res) => {
-  //const { authorization } = req.headers;
+  const { authorization } = req.headers;
+  const decodedToken = jwt.verify(authorization,process.env.SECRET)
+  const id_usuario= await db.getUser(decodedToken.email)
   const {
     fecha_publicacion,
     direccion,
@@ -19,9 +21,11 @@ const createHome = async (req, res) => {
     m2,
     habitaciones,
     baños,
-    id_usuario
+    garaje,
+    jardin,
+    ascensor,
+    balcon
   } = req.body;
-
   try {
     //const decodedToken = jwt.verify(authorization, process.env.SECRET);
     //const id_usuario = await db.getUser(decodedToken.id)
@@ -37,9 +41,15 @@ const createHome = async (req, res) => {
       m2,
       habitaciones,
       baños,
-      id_usuario
+      id_usuario.id,
+      garaje,
+      jardin,
+      ascensor,
+      balcon
     );
+
   } catch (e) {
+    console.log(e)
     let statusCode = 400;
     if (e.message === "database-error") {
       statusCode = 500;
@@ -87,6 +97,20 @@ const getHome = async (req, res) => {
     }
 }
 
+const userHomes = async(req,res) => {
+  const {id} = req.params
+  try {
+    const homes = await db.myHomes(id)
+    if(!homes.length) {
+      res.status(404).send()
+    }else{
+      res.send(homes)
+    }
+  }catch(e) {
+    res.status(500).send()
+    console.log(e)
+  }
+}
 
 const deleteHome = async(req,res) => {
     const {id} = req.params
@@ -182,6 +206,7 @@ module.exports = {
   getlistOfHomes,
   //processAndSaveImage,
   updateHome,
+  userHomes,
   SaveHomeImage,
   searchHomes
 };

@@ -23,21 +23,21 @@ const sendConfirmationMail = async (email, link) => {
     await sendgrid.send(message);
 }
 
-const sendRecoverPassword = async (email, code) => {
+const sendRecoverPassword = async (email, link) => {
   sendgrid.setApiKey(process.env.EMAIL_API_KEY);
 
   const message = {
       to: email,
       from: 'tony_balu@hotmail.com',
       subject: 'Validate your account',
-      text: `La dirección de verificación es: ${code}`,
+      text: `La dirección de verificación es: ${link}`,
       html: `
       <div>
         <h1> Valida tu registro </h1>
         <p> Si te has olvidado tu contraseña y pedido un reinicio
          de contraseña accede al link, si no ignora el mensaje </p>
 
-        ${code}
+        ${link}
       </div>
     `,
   };
