@@ -149,7 +149,7 @@ const updateHome = async(req,res) => {
       } = req.body;
     const{id} = req.params
     try{
-        await homeValidator.validateAsync(req.body)
+        //await homeValidator.validateAsync(req.body)
         await db.updateHomeQ(direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario,id)
     } catch(e) {
         let statusCode = 400;

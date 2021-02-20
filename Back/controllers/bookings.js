@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const { result } = require('lodash');
 const db = require('../db/mysql')
 
 
@@ -10,18 +11,19 @@ const booking = async (req,res) => {
     try{
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const id_usuario= await db.getUser(decodedToken.email)
-        console.log(id_usuario)
-        await db.createbooking(
+        const result = await db.createbooking(
             id_piso,
             parseInt(id_usuario.id),
             fecha_entrada,
             fecha_salida
         )
+        console.log(result.insertId)
+        res.send({'id':result.insertId})
     }catch(e){
         console.log(e)
         res.status(402).send
     }
-    res.send()
+    
 }
 
 const deletebooking = async(req,res) => {
@@ -66,7 +68,6 @@ const getListOfBooking = async(req,res) => {
 const getBooking = async (req,res) => {
     const {id} = req.params
     try{
-        console.log(id)
         const bookin = await db.getbooking(id)
         if(!bookin) {
             res.status(404).send()
@@ -76,6 +77,21 @@ const getBooking = async (req,res) => {
     }catch(e) {
         console.log(e)
         res.status(500).send(e)
+    }
+}
+
+const homeBookings = async (req,res) => {
+    const {id} = req.params
+    try{
+        const bookings = await db.homeBookings(id)
+        if(!bookings) {
+            res.send('no hay reservas en este piso')
+        }else {
+            res.send(bookings)
+        }
+    }catch(e){
+        console.log(e)
+        res.status(402).send(e)
     }
 }
 
@@ -103,9 +119,35 @@ const scoreBooking = async (req,res) => {
     }
 }
 
+const acceptBooking = async (req,res) => {
+    const {id} = req.params
+    try{
+        await db.acceptBooking(id)
+        res.send('Reserva aceptada')
+    }catch(e){
+        console.log(e)
+        res.status(403).send(e)
+    }
+}
+
+const declineBooking = async(req,res) => {
+    const {id} = req.params
+    try{
+        await db.declineBooking(id)
+        res.send('Reserva rechazada')
+    }catch(e){
+        console.log(e)
+        res.status(403).send(e)
+    }
+}
+
+
 module.exports = {
+    acceptBooking,
     booking,
+    declineBooking,
     deletebooking,
+    homeBookings,
     getBooking,
     getListOfBooking,
     scoreBooking

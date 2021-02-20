@@ -54,8 +54,10 @@ const login = async (req, res) => {
     //    - comprobar que están en BBDD y coinciden
     const {email, password} = req.body
     const user = await db.getUser(email)
-    const nombre = user.email
+    const mail = user.email
     const id = user.id
+    const nombre = user.nombre
+    const image = user.image
 
     if (!user) {
         res.status(401).send()
@@ -73,7 +75,7 @@ const login = async (req, res) => {
         isAdmin: user.role === 'admin',
         role: user.role,
         email: user.email,
-        id:user.id
+        id:user.id,
     }
 
     const token = jwt.sign(tokenPayload, process.env.SECRET, {
@@ -82,8 +84,10 @@ const login = async (req, res) => {
 
     res.json({
         token,
+        mail,
+        id,
         nombre,
-        id
+        image
     })
 }
 

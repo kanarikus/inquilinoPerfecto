@@ -15,11 +15,14 @@ const {
 }=require('./middlewares/auth')
 
 const{
+    acceptBooking,
     booking,
     deletebooking,
+    homeBookings,
     getBooking,
     getListOfBooking,
-    scoreBooking
+    scoreBooking,
+    declineBooking
 }=require('./controllers/bookings')
 
 const {
@@ -91,12 +94,14 @@ app.get('/vivienda/:id',getHome)
 app.delete('/vivienda/:id',deleteHome)
 app.put('/vivienda/:id',updateHome)
 
-app.post('/vivienda/:id/reserva',booking)
+app.post('/vivienda/reserva/:id',booking)
 app.delete('/reserva/:id',deletebooking)
 app.get('/reserva', getListOfBooking)
 app.get('/reserva/:id',sameBookin,getBooking)
-
+app.get('/vivienda/reserva/:id',homeBookings)
 app.post('/reserva/:id', scoreBooking)
+app.put('/reserva/acept/:id',acceptBooking)
+app.put('reserva/decline/:id', declineBooking)
 
 
 console.log(`Running on port ${currentPort}`)

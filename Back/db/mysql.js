@@ -69,7 +69,7 @@ const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio_pis
 }
 
 const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fecha_salida,m2,habitaciones,baños,garaje,ascensor,balcon,jardin,direction,order) => {
-    let queryVar = "select p.id,p.direccion,p.habitaciones,p.precio_piso,p.ciudad from piso p left outer join reserva r on r.id_piso = p.id"
+    let queryVar = "select p.id,p.direccion,p.habitaciones,p.baños,p.m2,p.precio_piso,p.ciudad from piso p left outer join reserva r on r.id_piso = p.id"
     const params=[]
     const orderDirection = (direction && direction.toLowerCase())==="asc"?"ASC":"DESC"
     let orderBY
@@ -117,8 +117,9 @@ const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fe
             const checkIn = dateToDB(fecha_entrada)
             const checkOut = dateToDB(fecha_salida)
             conditions.push(`(fecha_entrada not between ? and ?
-            and fecha_salida not between ? and ? and not(fecha_entrada<? and fecha_salida>?)
-            or (id_reserva is null))`)
+            and fecha_salida not between ? and ?
+            and not(fecha_entrada<? and fecha_salida>?)
+            or (r.id_reserva is null))`)
             params.push(
                 `${checkIn}`,
                 `${checkOut}`,
@@ -165,7 +166,7 @@ const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fe
 
 const listHomes = async() => {
     const query = `select * from piso`
-    const  [...result] = await performQuery(query)
+    const  [result] = await performQuery(query)
     return result
 }
 
@@ -266,11 +267,19 @@ const createbooking = async (id_piso,id_usuario,fecha_entrada,fecha_salida) => {
     const query = `insert into reserva (id_piso,id_usuario,fecha_entrada,fecha_salida,precio_reserva) 
         values (?,?,?,?,(select precio_piso from piso where id=?))`
     const params = [id_piso,id_usuario,fecha_entrada,fecha_salida,id_piso]
-    await performQuery(query,params)
+    const result = await performQuery(query,params)
+    return result
 }
 
 const getbooking = async (id) => {
-    const query = 'select * from reserva where id_reserva=?'
+    const query = `SELECT r.id_reserva, 
+    r.precio_reserva,
+    r.fecha_entrada,
+    r.fecha_salida,
+    r.score_piso,
+    p.ciudad,
+    p.direccion,
+    r.score_usuario from reserva r join piso p on r.id_piso=p.id where r.id_reserva = ?`
     const params = [id]
     const result = await performQuery(query,params)
     return result
@@ -298,6 +307,18 @@ const getListOfBooking = async(id) => {
     return result
 }
 
+const acceptBooking = async(id) => {
+    const query = `update reserva set estado = 'aceptado' where id_reserva = ?`
+    const params = [id]
+    await performQuery(query,params)
+}
+
+const declineBooking = async(id) => {
+    const query = `update reserva set estado= 'declinado' where id_reserva=?`
+    const params = [id]
+    await performQuery(query,params)
+}
+
 const getHomeOwner = async(bookinId) => {
     const query = `select r.id_reserva "id_reserva",
     r.id_usuario "id_usuario",
@@ -316,7 +337,7 @@ const scoreHome = async (score,bookinId) => {
 }
 
 const scoreUser = async(score,bookinId) => {
-    const query = `updatereserva set score_usuario=? where id_reserva=?`
+    const query = `update reserva set score_usuario=? where id_reserva=?`
     const params = [score,bookinId]
     let result = await performQuery(query,params)
     return result
@@ -343,14 +364,31 @@ const myHomes = async(id) => {
     return result
 }
 
+const homeBookings = async(id) => {
+    const query = `SELECT r.id_reserva,
+    u.nombre,
+	u.email,
+    r.fecha_reserva,
+    r.fecha_entrada,
+    r.fecha_salida,
+    r.precio_reserva
+    from reserva r join usuario u on r.id_usuario=u.id where r.id_piso = ?`
+    const params = [id]
+    const result = await performQuery(query,params)
+    return result
+}
+
 module.exports = {
+    acceptBooking,
     checkUpdateCode,
     checkValidationCode,
     createbooking,
     createHome,
+    declineBooking,
     deletebooking,
     deleteHome,
     deleteUserById,
+    homeBookings,
     getbooking,
     getHomeOwner,
     getListOfBooking,
