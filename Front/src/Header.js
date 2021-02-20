@@ -1,16 +1,14 @@
-import {useDispatch,useSelector} from 'react-redux'
+import {useSelector} from 'react-redux'
 import {Link} from 'react-router-dom'
 import DropDown from './DropDown'
 
 
 function Header() {
     const login = useSelector(s=>s.login)
-    console.log(login)
-    const dispatch = useDispatch()
 
-    const handleLogOut = () => {
-        dispatch({type:'logout'})
-    }
+    const avatarUrl = login&&login.image && (`http://localhost:9999/imagen/${login.image}.jpg`)
+    const  avatarStyle = login&&login.image&&{backgroundImage: 'url('+ avatarUrl+')'}
+    console.log(avatarUrl)
 
     return(
         <header className='headerContainer'>
@@ -20,15 +18,14 @@ function Header() {
                 <div className='loginContainer'>
                     <Link to='/login'>Iniciar sesión</Link>
                     <span>Buscar</span>
-                    <span>Idioma</span>
                 </div>
                 
             }
             {login&&
                 <div className='loginContainer'>
-                    <Link to='/createhome'>Sube tu piso</Link>
-                    <div><DropDown>{login.nombre}</DropDown></div>
-                    <button onClick={handleLogOut}>Salir</button>
+                    <div className='avatar' style={avatarStyle}></div>
+                    <div>{login.nombre}</div>
+                    <DropDown><span className='flecha-abajo'/></DropDown>
                 </div>
             } 
             </div>

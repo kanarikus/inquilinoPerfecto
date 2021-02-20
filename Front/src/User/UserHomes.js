@@ -10,15 +10,14 @@ function UserHomes() {
         <div>
             <h1>Mis pisos</h1>
             {data&&data.map(d=>
-            <Link to={`/vivienda/${d.id}`}>
             <div>
-                <h3>{d.precio_piso}</h3>
+                <h3> <Link to={`/updatehome/${d.id}`}>{d.precio_piso}</Link></h3>
                 <main>
                     <p>{d.ciudad}</p>
                     <p>habitaciones:{d.habitaciones}</p>
                 </main>
+               
             </div>
-            </Link>
             )}
         </div>
     )

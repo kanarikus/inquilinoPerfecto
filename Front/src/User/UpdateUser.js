@@ -43,7 +43,7 @@ function UpdateUser({ data }) {
     }
 
     const avatarUrl = data.image && `http://localhost:9999/imagen/${data.image}.jpg`
-    const  avatarStyle = login&&data.image&&{backgroundImage: 'url('+ avatarUrl+')'}
+    const avatarStyle = login&&data.image&&{backgroundImage: 'url('+ avatarUrl+')'}
     return(
         <div>
             <h2>Edita tu Perfil</h2>

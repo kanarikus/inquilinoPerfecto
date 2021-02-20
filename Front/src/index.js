@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter as Router } from 'react-router-dom'
 import {Provider} from 'react-redux'
-import {createStore,combineReducers} from 'redux'
+import {createStore,combineReducers, applyMiddleware} from 'redux'
 import loginReducer from './store/loginReducer'
 import registerReducer from './store/registerReducer'
 
@@ -14,7 +14,15 @@ const rootReducer = combineReducers({
   register: registerReducer
 })
 
-const store = createStore(rootReducer)
+const localStorageMiddleware = store => next => action =>{
+  let result = next(action)
+  localStorage.setItem("session",JSON.stringify(store.getState()))
+  return result
+}
+
+const saved =localStorage.getItem("session")
+const initialStore = saved ? JSON.parse(saved) : undefined
+const store = createStore(rootReducer, initialStore,applyMiddleware(localStorageMiddleware))
 
 ReactDOM.render(
   <React.StrictMode>

@@ -2,6 +2,9 @@ import {useState} from 'react'
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import useFetch from '../useFetch'
 import {Link} from 'react-router-dom'
+import './Search.css'
+
+const queryString = require('query-string')
 
 function Search() {
     const {ciudad} = useParams()
@@ -21,9 +24,15 @@ function Search() {
     const [balcon,setBalcon] = useState(false)
     const [results,setResults]=useState('')
 
-    const { search } = useLocation()
+    const parsed = queryString.parse(window.location.search)
+    
+    //parsed.ciudad = ciudad
+    // parsed.checkIn = parsedDates.checkIn
+    // parsed.checkOutcheckOut = parsedDates.checkOut
+    const stringified = queryString.stringify(parsed)
+    console.log(stringified)
+    // const { search } = useLocation()
     const history = useHistory()
-
     const handleSubmit= async e=> {
         e.preventDefault()
         const url = `/search/${city?city:ciudad}`+`&precio1=${precio1}`+
@@ -37,7 +46,9 @@ function Search() {
         history.push(url)
     }
 
-    const data = useFetch('http://localhost:9999/vivienda/busqueda?'+`ciudad=${ciudad}&${search}`)
+    const data = useFetch('http://localhost:9999/vivienda/busqueda?'
+    +(ciudad ?`ciudad=${ciudad}`:'')
+    +(`&${stringified}`))
 
     const paginatedData1 = data ? data.slice(5*(page-1),page*5) : []
     const max1 = data ? Math.ceil(data.length/5) : []
@@ -46,9 +57,9 @@ function Search() {
     const max = results ? Math.ceil(results.length/5) : []
 
     return(
-        <div>
-            <div>
-                <form onSubmit={handleSubmit}>
+        <div className='search-page'>
+            <div className='search-form'>
+                <form className='main-form' onSubmit={handleSubmit}>
                     <input name='ciudad' placeholder={ciudad} value={city} onChange={e=>setCity(e.target.value)}/>
                     <input placeholder='Precio Mínimo'value={precio1} onChange={e=>setPrecio1(e.target.value)}/>
                     <input placeholder='Precio Máximo' value={precio2} onChange={e=>setPrecio2(e.target.value)}/>
@@ -87,37 +98,38 @@ function Search() {
                     <button>Buscar!!</button>
                 </form>
             </div>
-            <div>
+            <div className='search-result'>
                 {!results&&data&&paginatedData1.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
-                    <div>
-                        {r.direccion}
-                        {r.precio} 
-                    </div>
-                      
+                    <article className='result-home'>
+                        <h3>{r.precio_piso}€</h3>
+                        <p>{r.habitaciones}habs. | {r.baños}baños | {r.m2}m2 </p>
+                        <p>{r.direccion}</p>
+                    </article>  
                 </Link>
             )}
                 {!results&&data&&
                 <div>
-                    <span onClick={()=>setPage(page>1? page-1:1)}>🡸</span>
+                    <span onClick={()=>setPage(page>1? page-1:1)}>Anterior</span>
                     <span>{page} de {max1}</span>
-                    <span onClick={()=>setPage(page<max1 ? page+1:max)}>🡺</span>
+                    <span onClick={()=>setPage(page<max1 ? page+1:max)}>Siguiente</span>
                 </div>}
             </div>
             <div>
                 {results&&paginatedData.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
-                    <div>
-                        {r.direccion}
-                        {r.precio}
-                    </div> 
+                     <article className='result-home'>
+                        <h3>{r.precio_piso}€</h3>
+                        <p>{r.habitaciones} habs. | {r.baños} baños | {r.m2} m2 </p>
+                        <p>{r.direccion}</p>
+                    </article>  
                 </Link>
             )}
                 {results&&
                 <div>
-                    <span onClick={()=>setPage(page>1? page-1:1)}>🡸</span>
+                    <span onClick={()=>setPage(page>1? page-1:1)}>Anterior</span>
                     <span>{page} de {max}</span>
-                    <span onClick={()=>setPage(page<max ? page+1:max)}>🡺</span>
+                    <span onClick={()=>setPage(page<max ? page+1:max)}>Suiguiente</span>
                 </div> }
             </div>   
         </div>

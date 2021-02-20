@@ -14,6 +14,10 @@ import Profile from './User/Profile';
 import UpdateUser from './User/UpdateUser';
 import UserHomes from './User/UserHomes';
 import UserBookings from './User/UserBookings';
+import UpdateHome from './viviendas/UpdateHome';
+import GetBooking from './bookings/GetBooking';
+import UserHome from './viviendas/UserHome';
+import HomeBookings from './viviendas/HomeBookings';
 
 function App() {
   return (
@@ -45,20 +49,26 @@ function App() {
         <Route path='/validate/:code' exact>
           <Validate/>
         </Route>
-
         <Route path='/user/update/:id' exact>
           <UpdateUser/>
         </Route>
         <Route path='/user/homes/:id' exact>
           <UserHomes/>
         </Route>
-        <Route path='/user/:id'>
-          <Profile/>
-        </Route>
         <Route path='/userbooking' exact>
           <UserBookings/>
         </Route>
-      </Switch> 
+        <Route path='/updatehome/:id' exact>
+          <UpdateHome/>
+          <HomeBookings/>
+        </Route>
+        <Route path='/booking/:id' exact>
+          <GetBooking/>
+        </Route>
+        <Route path='/user/:id'>
+          <Profile/>
+        </Route>
+      </Switch>
     </div>
   );
 }

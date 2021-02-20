@@ -16,11 +16,12 @@ function Vivienda() {
         e.preventDefault()
         const headers = {'Content-Type':'application/json'}
         if(login) headers ['Authorization'] = login.token
-        const res = await fetch(`http://localhost:9999/vivienda/${id}/reserva`,{
+        const res = await fetch(`http://localhost:9999/vivienda/reserva/${id}`,{
             method:'POST',
             headers,
             body: JSON.stringify({fecha_entrada,fecha_salida})
         })
+        console.log(res)
         // if(res.ok) {
         //     const data = await res.json()
         //     console.log(data)
@@ -30,10 +31,10 @@ function Vivienda() {
     return(
         <div>
             <form onSubmit={handleSubmit}>
-                <input type='date' value={fecha_entrada}
+                <input type='date' required value={fecha_entrada}
                 onChange={e=>setFechaentrada(e.target.value)}
                 />
-                <input type='date' value={fecha_salida}
+                <input type='date' required value={fecha_salida}
                 onChange={e=>setFechasalida(e.target.value)}
                 />
                 <button>Reservar!</button>

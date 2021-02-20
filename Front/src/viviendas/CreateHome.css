@@ -1,0 +1,33 @@
+.create-home{
+    font-family: 'quicksandlight';
+}
+
+.create-form{
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 10vh auto 10vh;
+}
+
+.create-form{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+    height: 70vh;
+    width: 50vw;
+    padding: 10px;
+    background: linear-gradient(180deg,rgb(214, 214, 16),rgb(204, 101, 5));
+}
+
+.create-form input {
+    width: 20vw;
+    box-shadow: black;
+    margin-bottom: 5px;
+}
+.create-form textarea{
+    margin-bottom: 5px;
+}
+.create-form button{
+    border-radius: 10px;
+
+}
