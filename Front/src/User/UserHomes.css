@@ -1,0 +1,25 @@
+.main-listhomes{
+    margin: auto;
+    width: 50vw;
+    font-family: 'quicksandlight';
+    display: flex;
+    flex-direction: column;
+    color: black;
+    background: linear-gradient(0deg,yellow,rgb(248, 135, 6));
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.main-listhomes a{
+    text-decoration: none;
+    color: black;
+}
+#listhome{
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px;
+}

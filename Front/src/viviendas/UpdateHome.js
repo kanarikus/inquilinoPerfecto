@@ -25,6 +25,7 @@ function UpdateHome({data}) {
     const [jardin,setJardin] = useState(data.jardin||'')
     const [ascensor,setAscensor] = useState(data.ascensor||'')
     const [balcon,setBalcon] = useState(data.balcon||'')
+    const [descripcion,setDescripcion] = useState(data.descripcion || '')
     const history = useHistory()
 
     const handleSubmit = async e => {
@@ -37,11 +38,12 @@ function UpdateHome({data}) {
         fd.append('m2',m2)
         fd.append('habitaciones',habitaciones)
         fd.append('baños',baños)
-        // fd.append('garaje',garaje)
-        // fd.append('jardin',jardin)
-        // fd.append('ascensor',ascensor)
-        // fd.append('balcon',balcon)
+        fd.append('garaje',garaje?'si':'no')
+        fd.append('jardin',jardin?'si':'no')
+        fd.append('ascensor',ascensor?'si':'no')
+        fd.append('balcon',balcon?'si':'no')
         fd.append('id_usuario',login.id)
+        fd.append('descripcion',descripcion)
         fetch(`http://localhost:9999/vivienda/${id}`,{
             method:'PUT',
             headers:{'Authorization': login.token},
@@ -50,8 +52,12 @@ function UpdateHome({data}) {
         history.push(`/vivienda/${id}`)
     }
 
+
     return(
         <form onSubmit={handleSubmit}>
+            <div className='homeimage'
+                style={data.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${data.image}.jpg`+')'}}/>
+            <input name='avatar' type='file' accept='image/*'/>
             <label>
                 Dirección
             </label>
@@ -91,7 +97,7 @@ function UpdateHome({data}) {
                 <input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/>
             </div>
             <label>Descripción</label>
-            <textarea/>
+            <textarea cols="40" rows="5"/>
             <button>Editar</button>
         </form>
     )

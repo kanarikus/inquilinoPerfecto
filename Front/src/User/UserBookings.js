@@ -1,4 +1,4 @@
-const { useParams, Link } = require("react-router-dom")
+const { Link } = require("react-router-dom")
 const { default: useFetch } = require("../useFetch")
 
 

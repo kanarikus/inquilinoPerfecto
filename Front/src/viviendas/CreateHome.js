@@ -17,15 +17,29 @@ function CreateHome() {
     const [jardin,setJardin] = useState(false)
     const [ascensor,setAscensor] = useState(false)
     const [balcon,setBalcon] = useState(false)
+    const [descripcion,setDescripcion] = useState('')
     const history = useHistory()
 
     const handleSubmit= async e => {
         e.preventDefault()
-        const headers = {'Content-Type':'application/json'}
-        if(login) headers['Authorization'] = login.token
+        const avatar = e.target.homeimage.files[0]
+        const fd = new FormData()
+        fd.append('direccion',direccion)
+        fd.append('image',avatar)
+        fd.append('provincia',provincia)
+        fd.append('ciudad',ciudad)
+        fd.append('precio',precio)
+        fd.append('m2',m2)
+        fd.append('habitaciones', habitaciones)
+        fd.append('baños',baños)
+        fd.append('garaje',garaje?'si':'no')
+        fd.append('jardin',jardin?'si':'no')
+        fd.append('ascensor',ascensor?'si':'no')
+        fd.append('balcon',balcon?'si':'no')
+        fd.append('descripcion',descripcion)
         const res = await fetch('http://localhost:9999/vivienda',{
-            headers,
-            body: JSON.stringify({direccion,provincia,ciudad,precio,m2,habitaciones,baños,garaje:garaje?'si':'no',jardin:jardin? 'si': 'no',ascensor:ascensor?'si':'no',balcon:balcon?'si':'no'}),
+            headers: {'Authorization': login.token},
+            body: fd,
             method:'POST'
         })
         if(res.ok) {
@@ -35,9 +49,17 @@ function CreateHome() {
         }
     }
 
+
     return(
         <div className='create-home'>
             <form className='create-form' onSubmit={handleSubmit}>
+                <label>
+                    <span>Foto del piso</span>
+                    <div>
+                        <div/>
+                        <input name='homeimage' type='file' accept='image/*'/>
+                    </div>
+                </label>
                 <label>
                     Dirección
                 </label>
@@ -77,7 +99,7 @@ function CreateHome() {
                     <input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/>
                 </div>
                 <label>Descripción</label>
-                <textarea cols="40" rows="5"/>
+                <textarea value={descripcion} onChange={e=>setDescripcion(e.target.value)} cols="40" rows="5"/>
                 <button>SUBIR PISO</button>
             </form>
         </div>

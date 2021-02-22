@@ -45,9 +45,9 @@ function UpdateUser({ data }) {
     const avatarUrl = data.image && `http://localhost:9999/imagen/${data.image}.jpg`
     const avatarStyle = login&&data.image&&{backgroundImage: 'url('+ avatarUrl+')'}
     return(
-        <div>
+        <div className='main-updateuser'>
             <h2>Edita tu Perfil</h2>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className='updateuser-form'>
                 <label className='avatar-picker'>
                     <span>Foto de perfil:</span>
                     <div className='value'>
@@ -56,7 +56,7 @@ function UpdateUser({ data }) {
                     </div>
                 </label>
                 <label>
-                    <span>Nombre</span>
+                    <span>Nombre</span><br/>
                     <input
                     name='name'
                     value = {name}
@@ -70,28 +70,28 @@ function UpdateUser({ data }) {
                     onChange={e=>setEmail(e.target.value)}/>
                 </label> */}
                 <label>
-                    <span>Provincia:</span>
+                    <span>Provincia:</span><br/>
                     <input
                     value={provincia}
                     onChange={e=>setProvincia(e.target.value)}
                     />
                 </label>
                 <label>
-                    <span>Ciudad:</span>
+                    <span>Ciudad:</span><br/>
                     <input
                     value={ciudad}
                     onChange={e=>setCiudad(e.target.value)}
                     />
                 </label>
                 <label>
-                    <span>teléfono:</span>
+                    <span>teléfono:</span><br/>
                     <input
                     value={telf}
                     onChange={e=>setTelf(e.target.value)}
                     />
                 </label>
                 <label>
-                    <span>Descripción:</span>
+                    <span>Descripción:</span><br/>
                     <textarea
                     value={descripcion}
                     onChange={e=>setDescripcion(e.target.value)}

@@ -16,13 +16,13 @@ import UserHomes from './User/UserHomes';
 import UserBookings from './User/UserBookings';
 import UpdateHome from './viviendas/UpdateHome';
 import GetBooking from './bookings/GetBooking';
-import UserHome from './viviendas/UserHome';
 import HomeBookings from './viviendas/HomeBookings';
 
 function App() {
   return (
     <div className="App">
       <Header/>
+      <div className='page'>
       <Switch>
         <Route path="/" exact>
           <Home/>
@@ -69,6 +69,7 @@ function App() {
           <Profile/>
         </Route>
       </Switch>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,43 @@
+.main-profile{
+    font-family: 'quicksandlight';
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.profile-container{
+    background:linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    border: 1px solid black;
+    border-radius: 10px;
+    margin-top: 50px;
+    height: 400px;
+    width: 30vw;
+    padding: 20px 30px 10px 30px;
+    display: flex;
+    flex-direction: column;
+    text-transform: capitalize;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.avatar{
+    border-radius: 30%;
+    height: 180px;
+    width: 180px;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover
+}
+.profile-container div{
+    margin-top: 5px;
+    text-decoration: wavy;
+}
+.profile-container button{
+    height: 30px;
+    border-radius: 50px;
+    font-family: 'quicksandlight';
+    text-transform:capitalize;
+}

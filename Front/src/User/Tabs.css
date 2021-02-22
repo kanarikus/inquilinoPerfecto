@@ -1,18 +1,27 @@
 .tabs {
     display: flex;
-    margin: 20px 10px 50px;
+    margin: 20px 10px 0px;
     position: relative;
 }
 .tabs a{
-    border: 1px solid #aaa;
-    border-bottom: 1px solid #eee;
+    width: 100px;
+    border: 1px solid rgb(5, 5, 4);
+    border-bottom: 1px solid rgb(245, 133, 5);
     padding:  8px 5px;
-    background-color: #ccc;
+    background-color: yellow;
+    text-decoration: none;
+    color: black;
 }
 
 .tabs .active{
-    background-color: white;
+    background-color: rgb(245, 140, 2);
+    transform: scale(1.15);
 }
 .tabs :hover{
     cursor: pointer;
+}
+.tabs::after{
+    background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    height: 40px;
+    content: '';
 }

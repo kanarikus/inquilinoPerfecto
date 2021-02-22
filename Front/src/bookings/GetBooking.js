@@ -1,28 +1,38 @@
+import { useState } from "react";
 import { useParams } from "react-router-dom";
+import PisoScore from "../Score/PisoScore";
+import Rating from "../Score/Score";
 import useFetch from "../useFetch";
 
-function GetBooking () {
-
+function GetBookingWrapper() {
     const {id} = useParams()
     const data = useFetch('http://localhost:9999/reserva/'+`${id}`) || []
-    console.log(data)
+    return data ? <GetBooking data={data}/> : false
+}
+
+
+function GetBooking ({data}) {
+
+    const {id} = useParams()
+    
     if(!data) return <div>Loading....</div>
     return(
         <div>
             {data.map(d=>
-                <div>
+                <main>
                     <h3>{d.ciudad}</h3>
-                    <main>
-                        <section>{d.precio_reserva}€</section>
-                        <section>{d.direccion}</section>
-                        <section>CheckIn:{d.fecha_entrada}</section>
-                        <section>CheckOut:{d.fecha_salida}</section>
-                        <section>Valoración del piso:{d.score_piso}</section>
-                    </main>
-                </div>
+                    <ul>
+                        <li>{d.precio_reserva}€</li>
+                        <li>{d.direccion}</li>
+                        <li>CheckIn:{d.fecha_entrada}</li>
+                        <li>CheckOut:{d.fecha_salida}</li>
+                        <li>{d.score_piso}</li>
+                        <li >Puntua el piso:<PisoScore previousScore={d.score_piso}id={id}/></li>
+                    </ul>
+                </main>
             )}
         </div>
     )
 }
 
-export default GetBooking;
+export default GetBookingWrapper;

@@ -1,9 +1,10 @@
 import { useSelector } from "react-redux"
-import { Link, Route, Switch, useHistory, useParams } from "react-router-dom"
+import { Route, Switch, useHistory, useParams } from "react-router-dom"
 import useFetch from "../useFetch"
 import Tabs from "./Tabs"
 import UserBookings from "./UserBookings"
 import UserHomes from "./UserHomes"
+import './Profile.css';
 
 function Profile() {
     const login = useSelector(s=>s.login)
@@ -18,18 +19,17 @@ function Profile() {
     const avatarUrl = data.image && `http://localhost:9999/imagen/${data.image}.jpg`
     const  avatarStyle = login&&data.image&&{backgroundImage: 'url('+ avatarUrl+')'}
     return(
-        <div>
+        <div className='main-profile'>
             {data&&
-            <div className='avatar-picker'>
-                <div className='value'>
-                    <div className='avatar' style={avatarStyle}/>
-                </div>
-                <span>{data.nombre}</span>
-                <span>{data.email}</span>
-                <span>{data.ciudad}</span>
-                <span>{data.id}</span>
-                <span>{data.telf}</span>
+            <div className='profile-container'>
+                <div className='avatar' style={avatarStyle}/>
+                <span>Nombre:  {data.nombre}</span>
+                <span>Email:  {data.email}</span>
+                <span>Ciudad:  {data.ciudad}</span>
+                <span>Provincia:  {data.Provincia}</span>
+                <span>Telf:  {data.telf}</span>
                 <button onClick={handleProfile}>Editar Perfil</button>
+                
             </div>
             }
             <Tabs/>

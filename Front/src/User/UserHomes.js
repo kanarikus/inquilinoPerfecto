@@ -1,5 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import useFetch from "../useFetch"
+import './UserHomes.css'
 
 
 function UserHomes() {
@@ -7,17 +8,18 @@ function UserHomes() {
     const data = useFetch('http://localhost:9999/usuario/vivienda/'+`${id}`)
     
     return(
-        <div>
+        <div className='main-listhomes'>
             <h1>Mis pisos</h1>
             {data&&data.map(d=>
-            <div>
-                <h3> <Link to={`/updatehome/${d.id}`}>{d.precio_piso}</Link></h3>
+            <Link to={`/updatehome/${d.id}`}><div id='listhome'>
+                <h3> {d.precio_piso}€</h3>
                 <main>
                     <p>{d.ciudad}</p>
-                    <p>habitaciones:{d.habitaciones}</p>
+                    <p>{d.habitaciones}habs. | {d.baños}baños | {d.m2}m2</p>
+                    <p>{d.direccion}</p>
                 </main>
-               
             </div>
+            </Link>
             )}
         </div>
     )

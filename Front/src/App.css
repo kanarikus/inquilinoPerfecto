@@ -28,17 +28,9 @@
 .App {
   text-align: center;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.page{
+  margin-top: 50px;
 }
-
-
-.App-link {
-  color: #61dafb;
-}
-
 
 .headerContainer {
   display: flex;

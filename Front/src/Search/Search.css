@@ -3,6 +3,7 @@
     display: flex;
     font-family: 'quicksandlight';
     justify-content: space-around;
+    min-height: 100vh
 }
 
 .main-form {

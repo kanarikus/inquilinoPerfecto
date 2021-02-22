@@ -1,12 +1,24 @@
 import {useState} from 'react'
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import useFetch from '../useFetch'
 import {Link} from 'react-router-dom'
 import './Search.css'
+import Rating from '../Score/Score';
 
 const queryString = require('query-string')
 
-function Search() {
+function SearchWrapper() {
+    const {ciudad} = useParams()
+    const parsed = queryString.parse(window.location.search)
+    const stringified = queryString.stringify(parsed)
+    const data = useFetch('http://localhost:9999/vivienda/busqueda?'
+    +(ciudad ?`ciudad=${ciudad}`:'')
+    +(`&${stringified}`))
+    return data ? <Search data = {data}/>:false
+}
+
+
+function Search({data}) {
     const {ciudad} = useParams()
 
     const [page,setPage] = useState(1)
@@ -22,7 +34,7 @@ function Search() {
     const [jardin,setJardin] = useState(false)
     const [ascensor,setAscensor] = useState(false)
     const [balcon,setBalcon] = useState(false)
-    const [results,setResults]=useState('')
+    const [results]=useState('')
 
     const parsed = queryString.parse(window.location.search)
     
@@ -46,9 +58,8 @@ function Search() {
         history.push(url)
     }
 
-    const data = useFetch('http://localhost:9999/vivienda/busqueda?'
-    +(ciudad ?`ciudad=${ciudad}`:'')
-    +(`&${stringified}`))
+    
+    console.log(data)
 
     const paginatedData1 = data ? data.slice(5*(page-1),page*5) : []
     const max1 = data ? Math.ceil(data.length/5) : []
@@ -102,9 +113,12 @@ function Search() {
                 {!results&&data&&paginatedData1.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
                     <article className='result-home'>
+                        <div className='homeimage'
+                        style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
                         <h3>{r.precio_piso}€</h3>
                         <p>{r.habitaciones}habs. | {r.baños}baños | {r.m2}m2 </p>
                         <p>{r.direccion}</p>
+                        <p><Rating value={r.score_piso}/></p>
                     </article>  
                 </Link>
             )}
@@ -119,6 +133,8 @@ function Search() {
                 {results&&paginatedData.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
                      <article className='result-home'>
+                        <div className='homeimage'
+                        style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
                         <h3>{r.precio_piso}€</h3>
                         <p>{r.habitaciones} habs. | {r.baños} baños | {r.m2} m2 </p>
                         <p>{r.direccion}</p>
@@ -136,4 +152,4 @@ function Search() {
     )
 }
 
-export default Search;
+export default SearchWrapper;
