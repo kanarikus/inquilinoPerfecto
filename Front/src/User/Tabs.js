@@ -4,7 +4,7 @@ import './Tabs.css'
 function Tabs() {
     const {id} = useParams()
     
-    const tabList = ['Pisos','Opiniones','Reservas']
+    const tabList = ['Pisos','Reservas']
     return(
         <div className='tabs'>
             {tabList.map(tab=>

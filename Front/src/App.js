@@ -58,7 +58,7 @@ function App() {
         <Route path='/userbooking' exact>
           <UserBookings/>
         </Route>
-        <Route path='/updatehome/:id' exact>
+        <Route path='/myhome/:id' exact>
           <UpdateHome/>
           <HomeBookings/>
         </Route>
