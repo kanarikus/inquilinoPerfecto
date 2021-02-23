@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { result } = require('lodash');
 const db = require('../db/mysql')
+const utils = require('../utils/utils')
 
 
 const booking = async (req,res) => {
@@ -11,14 +12,24 @@ const booking = async (req,res) => {
     try{
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const id_usuario= await db.getUser(decodedToken.email)
+        const prebooking = await db.bookexist(fecha_entrada,fecha_salida,id)
+        console.log(prebooking)
+        if(prebooking){
+            res.status(403).send()
+            return
+        }
+       
         const result = await db.createbooking(
-            id_piso,
-            parseInt(id_usuario.id),
-            fecha_entrada,
-            fecha_salida
+        id_piso,
+        parseInt(id_usuario.id),
+        fecha_entrada,
+        fecha_salida
         )
-        console.log(result.insertId)
+        const email = await db.getEmailBooking(result.insertId)
+        utils.sendBookingMail(email.email,`http://${process.env.FRONT_DOMAIN}/myhome/${id_piso}`)
         res.send({'id':result.insertId})
+        
+        
     }catch(e){
         console.log(e)
         res.status(402).send
@@ -99,12 +110,12 @@ const scoreBooking = async (req,res) => {
     const {score} = req.body
     try{
         const bookinId = parseInt(req.params.id)
-
+        
         const {authorization} = req.headers;
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const {id} = await db.getUser(decodedToken.email)
-
-        const {id_usuario,owner_id} = await db.getHomeOwner(bookinId)
+        console.log(id,bookinId)
+        const {id_usuario,owner_id} = await db.getBookingHomeOwner(bookinId)
 
         if(id === id_usuario) {
             await db.scoreHome(score,bookinId)

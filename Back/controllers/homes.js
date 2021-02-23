@@ -30,9 +30,9 @@ const createHome = async (req, res) => {
     //const decodedToken = jwt.verify(authorization, process.env.SECRET);
     //const id_usuario = await db.getUser(decodedToken.id)
 
-    await homeValidator.validateAsync(req.body)
+    //await homeValidator.validateAsync(req.body)
 
-    await db.createHome(
+    const data = await db.createHome(
       fecha_publicacion,
       direccion,
       provincia,
@@ -47,6 +47,14 @@ const createHome = async (req, res) => {
       ascensor,
       balcon
     );
+    res.send(data)
+    if(req.files) {
+      const fileID = uuid.v4()
+      const outputFileName = `${process.env.TARGET_FOLDER}/${fileID}.jpg`
+      await fsPromises.writeFile(outputFileName,req.files.image.data)
+      const image = await db.saveHomeImageQ(fileID,data.insertId)
+      res.send(image)
+    }
 
   } catch (e) {
     console.log(e)
@@ -57,7 +65,7 @@ const createHome = async (req, res) => {
     res.status(statusCode).send(e.message);
     return;
   }
-  res.send();
+  ;
 };
 
 const getlistOfHomes = async(req,res) => {

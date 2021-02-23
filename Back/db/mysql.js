@@ -69,7 +69,7 @@ const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio_pis
 }
 
 const search = async(direccion,provincia,ciudad,precio1,precio2,fecha_entrada,fecha_salida,m2,habitaciones,baños,garaje,ascensor,balcon,jardin,direction,order) => {
-    let queryVar = "select p.id,p.direccion,p.habitaciones,p.baños,p.m2,p.precio_piso,p.ciudad from piso p left outer join reserva r on r.id_piso = p.id"
+    let queryVar = "select p.id,p.direccion,p.habitaciones,p.baños,p.m2,avg(r.score_piso) 'score_piso',p.image,p.precio_piso,p.ciudad,p.provincia from piso p left outer join reserva r on r.id_piso = p.id"
     const params=[]
     const orderDirection = (direction && direction.toLowerCase())==="asc"?"ASC":"DESC"
     let orderBY
@@ -172,7 +172,22 @@ const listHomes = async() => {
 
 
 const getHome = async(id) => {
-    const query = `select * from piso where id=?`
+    const query = `SELECT p.direccion,
+    p.image,
+    p.provincia,
+    p.ciudad,
+    p.precio_piso,
+    p.m2,
+    p.habitaciones,
+    p.baños,
+    p.garaje,
+    p.ascensor,
+    p.balcon,
+    p.jardin,
+    p.descripcion,
+    p.id_usuario,
+    u.nombre,
+    avg(r.score_piso) "score_piso" FROM piso p left join reserva r on p.id=r.id_piso right join usuario u on p.id_usuario=u.id where p.id=?`
     const params = [id]
     const result = await performQuery(query,params)
 
@@ -181,7 +196,7 @@ const getHome = async(id) => {
 
 
 const saveHomeImageQ = async(fileID,id)=>{
-    const query= `insert into imagen (imagen,id_piso) values(?,?)`
+    const query= `update piso set image=? where id=? `
     const params= [fileID,id]
     await performQuery(query,params)
 }
@@ -319,13 +334,42 @@ const declineBooking = async(id) => {
     await performQuery(query,params)
 }
 
-const getHomeOwner = async(bookinId) => {
+const getBookingHomeOwner = async(bookinId) => {
     const query = `select r.id_reserva "id_reserva",
     r.id_usuario "id_usuario",
     p.id_usuario "owner_id"
-    from reserva r join piso p on p.id = r.id_piso where r.id_reserva=? group by id_reserva;`
+    from reserva r join piso p on p.id = r.id_piso where r.id_reserva=? group by r.id_reserva;`
     const params = [bookinId]
     let [result] = await performQuery(query,params)
+    return result
+}
+
+const getHomeOwner =  async(id) => {
+    const query = `select p.id "id_piso",
+    u.id "owner_id",
+    u.email "email" from piso p join usuario u on p.id_usuario = u.id
+    where p.id=?`
+    const params = [id]
+    const result = await performQuery(query,params)
+    return result
+}
+
+const getEmailBooking = async(id) => {
+    const query = `select r.id_reserva,
+    id_piso,
+    u.email from reserva r left join piso p on r.id_piso=p.id
+    right join usuario u on u.id = p.id_usuario
+    where r.id_reserva= ?`
+    const params = [id]
+    const  [result] = await performQuery(query,params)
+    return result
+}
+
+const bookexist = async(fecha_entrada,fecha_salida,id) => {
+    const query = `select * from reserva where (fecha_entrada between ? and ?
+    and fecha_salida between ? and ?) and id_piso=?`
+    const params = [fecha_entrada,fecha_salida,fecha_entrada,fecha_salida,id]
+    const [result] = await performQuery(query,params)
     return result
 }
 
@@ -371,7 +415,8 @@ const homeBookings = async(id) => {
     r.fecha_reserva,
     r.fecha_entrada,
     r.fecha_salida,
-    r.precio_reserva
+    r.precio_reserva,
+    r.estado
     from reserva r join usuario u on r.id_usuario=u.id where r.id_piso = ?`
     const params = [id]
     const result = await performQuery(query,params)
@@ -380,6 +425,7 @@ const homeBookings = async(id) => {
 
 module.exports = {
     acceptBooking,
+    bookexist,
     checkUpdateCode,
     checkValidationCode,
     createbooking,
@@ -390,9 +436,11 @@ module.exports = {
     deleteUserById,
     homeBookings,
     getbooking,
-    getHomeOwner,
+    getEmailBooking,
+    getBookingHomeOwner,
     getListOfBooking,
     getHome,
+    getHomeOwner,
     getUser,
     getUserId,
     listHomes,

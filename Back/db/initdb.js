@@ -37,6 +37,7 @@ async function main() {
     console.log('tabla usuario creado')
     await connection.query(`create table if not exists piso(
       id int unsigned auto_increment primary key,
+      image varchar(500),
       direccion varchar(100) not null,
       provincia varchar(100) not null,
       ciudad varchar(100) not null,
@@ -58,13 +59,6 @@ async function main() {
 		    references usuario(id)
     );`)
       console.log('**Tabla Pisos creada**')
-    await connection.query(`create table if not exists imagen(
-      id int unsigned auto_increment primary key,
-      imagen varchar(500),
-      id_piso int unsigned not null,
-      constraint imagen_id_piso_fk1 foreign key (id_piso)
-		    references piso(id)
-    );`)
 
     await connection.query(`create table if not exists reserva (
       id_reserva int unsigned auto_increment primary key,

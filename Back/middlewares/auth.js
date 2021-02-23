@@ -50,17 +50,36 @@ const isSameUser = async (req, res, next) => {
 
 }
 
+const homeOwner = async(req,res,next) => {
+    const {authorization} = req.headers;
+    const decodedToken = jwt.verify(authorization,process.env.SECRET)
+    const {id} = await db.getUser(decodedToken.email)
+    const id_piso = parseInt(req.params.id)
+    const owner =await db.getHomeOwner(id_piso)
+    const owner_id = owner[0].owner_id
+    console.log(id_piso,owner_id)
+    if(id !== owner_id) {
+        res.status(403).send()
+    } else {
+        next()
+    }
+}
+
 const sameBookin = async (req,res,next) => {
+    //este middelware iguala el id del logueado
+    //con el id del que hizo la reserva
     try {
         const bookinId = parseInt(req.params.id)
+        
         const {authorization} = req.headers;
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const {id} = await db.getUser(decodedToken.email)
-        const {id_usuario} = await db.getHomeOwner(id,bookinId)
+        const userid = await db.getBookingHomeOwner(bookinId)
+        const id_usuario = userid.owner_id
         console.log(id_usuario)
-        // if(id_usuario !== id || ) {
-        //     return
-        // }
+        if(id_usuario !== id ) {
+            return
+        }
     }catch(e) {
         console.log(e)
         res.status(406).send()
@@ -69,6 +88,7 @@ const sameBookin = async (req,res,next) => {
 }
 
 module.exports = {
+    homeOwner,
     isAuthenticated,
     isAdmin,
     isSameUser,

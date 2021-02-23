@@ -11,7 +11,8 @@ const {
         isAuthenticated,
         isAdmin,
         isSameUser,
-        sameBookin
+        sameBookin,
+        homeOwner
 }=require('./middlewares/auth')
 
 const{
@@ -91,17 +92,17 @@ app.post('/vivienda/imagen/:id',SaveHomeImage)
 app.post('/vivienda',isAuthenticated,createHome)
 app.get('/vivienda',getlistOfHomes)
 app.get('/vivienda/:id',getHome)
-app.delete('/vivienda/:id',deleteHome)
-app.put('/vivienda/:id',updateHome)
+app.delete('/vivienda/:id',isSameUser,homeOwner,deleteHome)
+app.put('/vivienda/:id',isAuthenticated,homeOwner,updateHome)
 
 app.post('/vivienda/reserva/:id',booking)
 app.delete('/reserva/:id',deletebooking)
-app.get('/reserva', getListOfBooking)
+app.get('/reserva',isAuthenticated,isSameUser,getListOfBooking)
 app.get('/reserva/:id',sameBookin,getBooking)
 app.get('/vivienda/reserva/:id',homeBookings)
-app.post('/reserva/:id', scoreBooking)
-app.put('/reserva/acept/:id',acceptBooking)
-app.put('reserva/decline/:id', declineBooking)
+app.put('/reserva/:id',isAuthenticated,sameBookin,scoreBooking)
+app.put('/reserva/acept/:id',isAuthenticated,sameBookin,acceptBooking)
+app.put('/reserva/decline/:id',isAuthenticated,sameBookin ,declineBooking)
 
 
 console.log(`Running on port ${currentPort}`)
