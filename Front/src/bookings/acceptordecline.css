@@ -1,0 +1,46 @@
+.aceptor-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.accept-booking{
+    color:green;
+    background: rgba(255, 255, 255, 0.103);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    transition-duration: 0.2s;
+    transition-property: all;
+}
+
+.accept-booking:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    box-shadow: 2px 2px 5px black;
+}
+
+.accept-booking:active{
+    transform: scale(1);
+}
+
+.decline-booking{
+    color:red;
+    background: rgba(255, 255, 255, 0.103);
+    border-radius: 10px;
+    margin-bottom: 10px;
+    padding: 5px;
+    transition-duration: 0.2s;
+    transition-property: all;
+}
+
+.decline-booking:hover{
+    cursor: pointer;
+    transform: scale(1.2);
+    box-shadow: 2px 2px 5px black;
+}
+
+.decline-booking:active{
+    transform: scale(1);
+}

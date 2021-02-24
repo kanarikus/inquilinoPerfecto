@@ -1,6 +1,6 @@
 .main-listhomes{
     margin: auto;
-    width: 50vw;
+    width: 60vw;
     font-family: 'quicksandlight';
     display: flex;
     flex-direction: column;
@@ -12,14 +12,32 @@
 }
 
 .main-listhomes a{
+    margin: 10px 30px;
     text-decoration: none;
     color: black;
+    transition: all 0.3s ease;
 }
+
+.main-listhomes a:hover{
+    transform: scale(1.05);
+}
+
 #listhome{
     display: flex;
-    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+}
+
+.myhomes-image{
+    height: 150px;
+    width: 150px;
+    background-size: cover;
+    margin: 10px 40px;
+}
+.myhomes-content {
+    margin: 10px 80px;
 }

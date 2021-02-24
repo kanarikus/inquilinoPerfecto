@@ -1,0 +1,12 @@
+.booking-container{
+    font-family: 'quicksandlight';
+    border: 1px solid black;
+    border-radius: 10px;
+    background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    margin: auto;
+    width: 50vw;
+}
+
+.booking-container h1{
+    font-family: 'lobster_twobold_italic';
+}

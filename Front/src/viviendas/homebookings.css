@@ -1,0 +1,39 @@
+
+.homebooking-contain{
+    background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px black;
+    margin: 20px 20px;
+    width: 40vw;
+    text-transform: capitalize;
+}
+
+.aceptado{
+    color:green;
+    background: rgba(255, 255, 255, 0.103);
+    border-radius: 10px;
+    width: 10vw;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.declinado{
+    color:red;
+    background: rgba(255, 255, 255, 0.103);
+    border-radius: 10px;
+    width: 10vw;
+    margin: auto;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.booking-contested{
+    background: rgba(245, 245, 245, 0.212);
+    border-radius: 10px;
+    margin: auto;
+    margin-bottom: 5px;
+    width: 15vw;
+    padding: 5px;
+}

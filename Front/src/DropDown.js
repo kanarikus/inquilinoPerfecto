@@ -15,7 +15,7 @@ function DropDown ({children}) {
             {children}
             {visible &&
                 <div className='dropdown'>
-                    <Link to={`/user/${login.id}`}>Perfil</Link>
+                    <Link to={`/user/profile/${login.id}`}>Perfil</Link>
                     <Link to='/userbooking'>Mis reservas</Link>
                     <Link to={`/user/homes/${login.id}`}>Mis pisos</Link>
                     <Link to='/createhome'>Sube tu piso</Link>

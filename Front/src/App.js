@@ -16,17 +16,18 @@ import UserHomes from './User/UserHomes';
 import UserBookings from './User/UserBookings';
 import UpdateHome from './viviendas/UpdateHome';
 import GetBooking from './bookings/GetBooking';
-import HomeBookings from './viviendas/HomeBookings';
+
+
 
 function App() {
   return (
     <div className="App">
       <Header/>
-      <div className='page'>
       <Switch>
         <Route path="/" exact>
           <Home/>
         </Route>
+      <div className='page'> 
         <Route path="/login" exact>
           <Login/>
           <Register/>
@@ -60,16 +61,16 @@ function App() {
         </Route>
         <Route path='/myhome/:id' exact>
           <UpdateHome/>
-          <HomeBookings/>
         </Route>
         <Route path='/booking/:id' exact>
           <GetBooking/>
         </Route>
-        <Route path='/user/:id'>
+        <Route path='/user/profile/:id'>
           <Profile/>
         </Route>
+      </div> 
       </Switch>
-      </div>
+      
     </div>
   );
 }

@@ -1,7 +1,214 @@
 .homeimage{
-    height: 80px;
-    width: 80px;
+    height: 350px;
+    width: 250px;
     background-size: cover;
-    margin: auto;
     background-repeat: no-repeat;
+    border-radius: 10px;
+    margin-left: 40px;
+}
+
+.homedata{
+    font-family: 'quicksandlight';
+    display: flex;
+    flex-wrap: wrap;
+    flex-flow: column;
+    justify-content: center;
+    flex-direction: column;
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 800px;
+    height: 1000px;
+    margin:auto;
+    margin-bottom: 30px;
+    box-shadow: 5px 5px 10px black;
+    background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
+}
+
+.home-contain{
+    width: 50vw;
+    height: 60vh;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.home-specific{
+    width: 212px;
+    height: 350px;
+}
+
+.home-specific a {
+    text-decoration: none;
+}
+
+.home-specific > h2,h3{
+    margin: 5px 0px;
+}
+
+.home-atributes{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.room-container{
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.room{
+    background-image: url('../front-images/cama.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+    margin-right: 10px;
+}
+
+.bath-container{
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+.bath{
+    background-image: url('../front-images/banera.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.m2-container{
+    width: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+.m2{
+    background-image: url('../front-images/tamano-cuadrado.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.owner{
+    margin-top: 20px;
+    background-color: rgba(245, 245, 245, 0.205);
+    border-radius: 10px;
+    padding:10px;
+}
+
+.garage-container{
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+.garaje{
+    background-image: url('../front-images/garage.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.jardin-container {
+    width: 50px;
+    height: 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+.jardin{
+    background-image: url('../front-images/farming.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.ascensor-container{
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+
+.ascensor{
+    background-image: url('../front-images/ascensor.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.balcon-container{
+    width: 50px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+    margin-right: 20px;
+}
+.balcon{
+    background-image: url('../front-images/balcon-antiguo.png');
+    height: 30px;
+    width: 30px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-right: 5px;
+}
+
+.homedata-form{
+    
+    width: 400px;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.homedata-form input{
+    border-radius: 10px;
+    text-align: center;
+    margin-left: 10px;
+}
+
+.homedata-form button{
+    font-family: 'lobster_twobold_italic';
+    margin-left: 15px;
+    height: 35px;
+    width: 80px;
+    background: rgb(30, 136, 235);
+    color: white;
+    transition: all 0.3s;
+}
+.homedata-form button:hover{
+    cursor: pointer;
+    transform: scale(1.3);
 }

@@ -8,7 +8,7 @@ function Tabs() {
     return(
         <div className='tabs'>
             {tabList.map(tab=>
-                <NavLink activeClassName="active" to={`/user/${id}/` + tab}>
+                <NavLink activeClassName="active" to={`/user/profile/${id}/` + tab}>
                     {tab}
                 </NavLink>
             )}

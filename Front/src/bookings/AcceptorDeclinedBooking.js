@@ -1,4 +1,5 @@
 import { useSelector } from "react-redux"
+import './acceptordecline.css'
 
 const { useState } = require("react")
 
@@ -42,16 +43,16 @@ function AcceptorDeclineBooking({value}) {
     return(
         <div>
             {!done&&
-            <div>
-                <span onClick={handleAccept}>Aceptar</span>
-                <span onClick={handleDecline}>Declinar</span>
+            <div className='aceptor-container'>
+                <p className='accept-booking' onClick={handleAccept}><b>Aceptar</b></p>
+                <p className='decline-booking' onClick={handleDecline}><b>Declinar</b></p>
             </div>
             }
             {acept&&
-            <div>Has aceptado esta reserva</div>
+            <div className='booking-contested'><b>Has aceptado esta reserva</b></div>
             }
             {declin&&
-            <div>Has rechazado esta reserva</div>
+            <div className='booking-contested'><b>Has rechazado esta reserva</b></div>
             }
         </div>
     )

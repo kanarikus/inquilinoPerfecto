@@ -1,7 +1,9 @@
-import { useState } from "react"
+import { useRef, useState } from "react"
 import { useSelector } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import useFetch from "../useFetch"
+import HomeBookings from "./HomeBookings"
+import './updatehome.css'
 
 function UpdateHomeWrapper() {
     const {id} = useParams()
@@ -14,7 +16,11 @@ function UpdateHome({data}) {
 
     const login = useSelector(l=>l.login)
     const id_usuario = login.id
+
+    const ref = useRef()
+    const refa = useRef()
     const {id} = useParams()
+
     const [direccion,setDireccion] = useState(data.direccion ||'')
     const [provincia,setProvincia] = useState(data.provincia||'')
     const [ciudad,setCiudad] = useState(data.ciudad||'')
@@ -31,7 +37,9 @@ function UpdateHome({data}) {
 
     const handleSubmit = async e => {
         e.preventDefault()
+        const avatar = e.target.avatar.files[0]
         const fd = new FormData()
+        fd.append('image',avatar)
         fd.append('direccion',direccion)
         fd.append('provincia',provincia)
         fd.append('ciudad',ciudad)
@@ -52,17 +60,27 @@ function UpdateHome({data}) {
         })
         history.push(`/vivienda/${id}`)
     }
+    
+    const handlePick = e => {
+        e.preventDefault()
+        ref.current.click()
+    }
 
+    const handlePhoto = e => {
+        e.preventDefault()
+        refa.current.click()
+    }
 
     return(
-        <div>
-            {data&&(id_usuario === data.id_usuario)&& <h1>Mi piso</h1>}
-            {data&&(id_usuario!==data.id_usuario)&&<span>A mamarla</span>}
+        <div className='homendbookings'>
+            {data&&(id_usuario!==data.id_usuario)&&<span>No tienes permisos para acceder a esta dirección</span>}
             {data&&(id_usuario === data.id_usuario)&&
-            <form onSubmit={handleSubmit}>
-                <div className='homeimage'
+            <form onSubmit={handleSubmit} className='form-container'>
+                <h1>Mi piso</h1>
+                <div className='updatehome-image'
                     style={data.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${data.image}.jpg`+')'}}/>
-                <input name='avatar' type='file' accept='image/*'/>
+                <input ref={refa} name='avatar' className='uploadimage-home' type='file' accept='image/*'/>
+                <div className='upload-image' onClick={handlePhoto}/>
                 <label>
                     Dirección
                 </label>
@@ -91,20 +109,24 @@ function UpdateHome({data}) {
                     Baños
                 </label>
                 <input name='baños' type='number' value={baños} placeholder='Baños' onChange={e=>setBaños(e.target.value)}/>
-                <div>
-                    <label>Garaje</label>
-                    <input type='checkbox' checked={garaje} onChange={e=>setGaraje(e.target.checked)}/>
-                    <label>Jardin</label>
-                    <input type='checkbox' checked={jardin} onChange={e=>setJardin(e.target.checked)}/>
-                    <label>Ascensor</label>
-                    <input type='checkbox' checked={ascensor} onChange={e=>setAscensor(e.target.checked)}/>
-                    <label>Balcon</label>
-                    <input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/>
+                <div className='booleans'>
+                    <label className='booleans-label'>Garaje<input type='checkbox' checked={garaje} onChange={e=>setGaraje(e.target.checked)}/></label>
+                    
+                    <label className='booleans-label'>Jardin<input type='checkbox' checked={jardin} onChange={e=>setJardin(e.target.checked)}/></label>
+                    
+                    <label className='booleans-label'>Ascensor<input type='checkbox' checked={ascensor} onChange={e=>setAscensor(e.target.checked)}/></label>
+                    
+                    <label className='booleans-label'>Balcon<input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/></label>
+                    
                 </div>
                 <label>Descripción</label>
-                <textarea cols="40" rows="5"/>
-                <button>Editar</button>
+                <textarea cols="40" rows="8" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <button ref={ref} onChange={handleSubmit}></button>
+                <div className='savebutton' onClick={handlePick}/>
             </form>}
+            <div>
+                <HomeBookings/>
+            </div>
         </div>
     )
 }

@@ -5,6 +5,7 @@ import Tabs from "./Tabs"
 import UserBookings from "./UserBookings"
 import UserHomes from "./UserHomes"
 import './Profile.css';
+import Rating from "../Score/Score"
 
 function Profile() {
     const login = useSelector(s=>s.login)
@@ -23,22 +24,24 @@ function Profile() {
             {data&&
             <div className='profile-container'>
                 <div className='avatar' style={avatarStyle}/>
-                <span>Nombre:  {data.nombre}</span>
-                <span>Email:  {data.email}</span>
-                <span>Ciudad:  {data.ciudad}</span>
-                <span>Provincia:  {data.Provincia}</span>
-                <span>Telf:  {data.telf}</span>
-                <button onClick={handleProfile}>Editar Perfil</button>
+                <span><b>Nombre:</b>  {data.nombre}</span>
+                <span><b>Email:</b>  {data.email}</span>
+                <span><b>Ciudad:</b>  {data.ciudad}</span>
+                <span><b>Provincia:</b>  {data.Provincia}</span>
+                <span><b>Telf: </b> {data.telf}</span>
+                <span><b>sobre mi:</b> {data.descripcion}</span>
+                <span><b>Valoración media</b><br/>({data.count_usuario})<Rating value={data.score_usuario}/></span>
+                <button onClick={handleProfile}><div className='edit-profile'/></button>
                 
             </div>
             }
             <Tabs/>
 
             <Switch>
-                <Route path="/user/:id/Reservas">
+                <Route path="/user/profile/:id/Reservas">
                     <UserBookings/>
                 </Route>
-                <Route path="/user/:id/Pisos">
+                <Route path="/user/profile/:id/Pisos">
                     <UserHomes/>
                 </Route>
             </Switch>

@@ -1,9 +1,16 @@
-import {useState} from 'react'
+import { useState} from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
+import NewMap from '../utils/NewMap'
 import './CreateHome.css'
 
 function CreateHome() {
+
+    const center = {
+        lat: 42.2260838,
+        lng: -8.7604452,
+      }
+
     const login = useSelector(l=>l.login)
     //console.log(login.token)
     const [direccion,setDireccion] = useState('')
@@ -18,6 +25,9 @@ function CreateHome() {
     const [ascensor,setAscensor] = useState(false)
     const [balcon,setBalcon] = useState(false)
     const [descripcion,setDescripcion] = useState('')
+    const [position,setPosition] = useState(center)
+    const latitude = position.lat 
+    const longitude = position.lng
     const history = useHistory()
 
     const handleSubmit= async e => {
@@ -36,6 +46,8 @@ function CreateHome() {
         fd.append('jardin',jardin?'si':'no')
         fd.append('ascensor',ascensor?'si':'no')
         fd.append('balcon',balcon?'si':'no')
+        fd.append('latitude',latitude)
+        fd.append('longitude',longitude)
         fd.append('descripcion',descripcion)
         const res = await fetch('http://localhost:9999/vivienda',{
             headers: {'Authorization': login.token},
@@ -48,7 +60,10 @@ function CreateHome() {
             console.log('error')
         }
     }
-
+    
+    const handlePosition = newposition => {
+        setPosition(newposition)
+    }
 
     return(
         <div className='create-home'>
@@ -102,6 +117,7 @@ function CreateHome() {
                 <textarea value={descripcion} onChange={e=>setDescripcion(e.target.value)} cols="40" rows="5"/>
                 <button>SUBIR PISO</button>
             </form>
+            <NewMap position={position} center={center} onChange={handlePosition}/>
         </div>
     )
 }

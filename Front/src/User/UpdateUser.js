@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory, useParams } from "react-router-dom";
 import useFetch from "../useFetch";
@@ -15,6 +15,7 @@ function UpdateUser({ data }) {
     const history = useHistory()
     const login = useSelector(s=>s.login)
     const {id} = useParams()
+    const ref= useRef()
     
     const [name,setName] = useState(data.nombre ||'')
     //const [email,setEmail] = useState(data.email||'')
@@ -39,7 +40,12 @@ function UpdateUser({ data }) {
             headers: {'Authorization': login.token},
             body: fd
         })
-        history.push(`/user/${id}`)
+        history.push(`/user/profile/${id}`)
+    }
+
+    const handlePick = e => {
+        e.preventDefault()
+        ref.current.click()
     }
 
     const avatarUrl = data.image && `http://localhost:9999/imagen/${data.image}.jpg`
@@ -51,8 +57,9 @@ function UpdateUser({ data }) {
                 <label className='avatar-picker'>
                     <span>Foto de perfil:</span>
                     <div className='value'>
-                        <div className='avatar' style={avatarStyle}/>
-                        <input name='avatar' type='file' accept='image/*'/>
+                        <div className='updateuser-image' style={avatarStyle}/>
+                        <input ref={ref} name='avatar' className='uploadimage-input' type='file' accept='image/*'/>
+                        <button className='uploadimage' onClick={handlePick}/>
                     </div>
                 </label>
                 <label>
@@ -93,11 +100,12 @@ function UpdateUser({ data }) {
                 <label>
                     <span>Descripción:</span><br/>
                     <textarea
+                    cols="40" rows="8"
                     value={descripcion}
                     onChange={e=>setDescripcion(e.target.value)}
                     />
                 </label>
-                <button>Guardar</button>
+                <button className='save-uploadedprofile'/>
             </form>
         </div>
     )

@@ -1,8 +1,8 @@
-import { useState } from "react";
 import { useParams } from "react-router-dom";
 import PisoScore from "../Score/PisoScore";
-import Rating from "../Score/Score";
 import useFetch from "../useFetch";
+import './getbooking.css'
+const moment = require('moment')
 
 function GetBookingWrapper() {
     const {id} = useParams()
@@ -17,19 +17,19 @@ function GetBooking ({data}) {
     
     if(!data) return <div>Loading....</div>
     return(
-        <div>
+        <div className='booking-container'>
+            <h1>Tu reserva</h1>
             {data.map(d=>
-                <main>
-                    <h3>{d.ciudad}</h3>
-                    <ul>
-                        <li>{d.precio_reserva}€</li>
-                        <li>{d.direccion}</li>
-                        <li>CheckIn:{d.fecha_entrada}</li>
-                        <li>CheckOut:{d.fecha_salida}</li>
-                        <li>{d.score_piso}</li>
-                        <li >Puntua el piso:<PisoScore previousScore={d.score_piso}id={id}/></li>
-                    </ul>
-                </main>
+                <section>
+                    <h2>{d.ciudad}</h2>
+                    <main>
+                        <p><b>{d.precio_reserva}€</b></p>
+                        <p>Dirección<br/><b>{d.direccion}</b></p>
+                        <p>CheckIn:<br/><b>{moment(d.fecha_entrada).format('DD-MM-YYYY')}</b></p>
+                        <p>CheckOut:<br/><b>{moment(d.fecha_salida).format('DD-MM-YYYY')}</b></p>
+                        <p >Puntua el piso:<PisoScore previousScore={d.score_piso}id={id}/></p>
+                    </main>
+                </section>
             )}
         </div>
     )

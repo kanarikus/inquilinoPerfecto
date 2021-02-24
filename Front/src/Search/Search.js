@@ -112,9 +112,9 @@ function Search({data}) {
             <div className='search-result'>
                 {!results&&data&&paginatedData1.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
-                    <article className='result-home'>
-                        <div className='homeimage'
+                    <div className='result-image'
                         style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
+                    <article className='result-home'>
                         <h3>{r.precio_piso}€</h3>
                         <p>{r.habitaciones}habs. | {r.baños}baños | {r.m2}m2 </p>
                         <p>{r.direccion}</p>
@@ -123,18 +123,18 @@ function Search({data}) {
                 </Link>
             )}
                 {!results&&data&&
-                <div>
-                    <span onClick={()=>setPage(page>1? page-1:1)}>Anterior</span>
+                <div className='pagination'>
+                    <span className='goback' onClick={()=>setPage(page>1? page-1:1)}><div className='goback'/></span>
                     <span>{page} de {max1}</span>
-                    <span onClick={()=>setPage(page<max1 ? page+1:max)}>Siguiente</span>
+                    <span className='next' onClick={()=>setPage(page<max1 ? page+1:max)}><div className='next'/></span>
                 </div>}
             </div>
             <div>
                 {results&&paginatedData.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
-                     <article className='result-home'>
-                        <div className='homeimage'
+                    <div className='result-image'
                         style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
+                     <article className='result-home'>
                         <h3>{r.precio_piso}€</h3>
                         <p>{r.habitaciones} habs. | {r.baños} baños | {r.m2} m2 </p>
                         <p>{r.direccion}</p>
@@ -142,10 +142,10 @@ function Search({data}) {
                 </Link>
             )}
                 {results&&
-                <div>
-                    <span onClick={()=>setPage(page>1? page-1:1)}>Anterior</span>
+                <div className='pagination'>
+                    <span onClick={()=>setPage(page>1? page-1:1)}><div className='goback'/></span>
                     <span>{page} de {max}</span>
-                    <span onClick={()=>setPage(page<max ? page+1:max)}>Suiguiente</span>
+                    <span onClick={()=>setPage(page<max ? page+1:max)}><div className='next'/></span>
                 </div> }
             </div>   
         </div>
