@@ -24,7 +24,10 @@ const createHome = async (req, res) => {
     garaje,
     jardin,
     ascensor,
-    balcon
+    balcon,
+    latitude,
+    longitude,
+    descripcion
   } = req.body;
   try {
     //const decodedToken = jwt.verify(authorization, process.env.SECRET);
@@ -41,11 +44,14 @@ const createHome = async (req, res) => {
       m2,
       habitaciones,
       baños,
-      id_usuario.id,
       garaje,
       jardin,
       ascensor,
-      balcon
+      balcon,
+      latitude,
+      longitude,
+      descripcion,
+      id_usuario.id
     );
     res.send(data)
     if(req.files) {
@@ -156,9 +162,18 @@ const updateHome = async(req,res) => {
         id_usuario
       } = req.body;
     const{id} = req.params
+
+    if(req.files) {
+      const fileID = uuid.v4()
+      const outputFileName = `${process.env.TARGET_FOLDER}/${fileID}.jpg`
+      await fsPromises.writeFile(outputFileName,req.files.image.data)
+      const image = await db.saveHomeImageQ(fileID,id)
+      res.send(image)
+    }
     try{
         //await homeValidator.validateAsync(req.body)
         await db.updateHomeQ(direccion,provincia,ciudad,precio,m2,habitaciones,baños,id_usuario,id)
+        
     } catch(e) {
         let statusCode = 400;
     

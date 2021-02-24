@@ -41,7 +41,6 @@ const updateUser = async (req,res) => {
     if(req.files) {
         const fileID = uuid.v4()
         const outputFileName = `${process.env.TARGET_FOLDER}/${fileID}.jpg`
-        console.log(req.files)
         await fsPromises.writeFile(outputFileName,req.files.image.data)
         await db.saveUserImage(fileID,id)
         res.send()

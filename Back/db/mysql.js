@@ -53,16 +53,26 @@ const deleteUserById = async(id)=>{
 }
 
 const getUserId = async(id) =>{
-    const query = `select * from usuario where id = ?`
+    const query = `select u.id,
+    u.nombre,
+    u.email,
+    u.Provincia,
+    u.ciudad,
+    u.telf,
+    u.image,
+    u.role,
+    u.descripcion,
+    avg(r.score_usuario) "score_usuario",
+    count(r.score_usuario) "count_usuario" from usuario u join reserva r on u.id=r.id_usuario where id = ?`
     const params = [id]
     const [result] =await performQuery(query,params)
     return result
 }
 
-const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon) => {
-    const query = `INSERT INTO piso(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon)
-    VALUES(UTC_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?)`
-    const params = [direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,id_usuario,garaje,jardin,ascensor,balcon]
+const createHome = async(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,garaje,jardin,ascensor,balcon,latitude,longitude,descripcion,id_usuario) => {
+    const query = `INSERT INTO piso(fecha_publicacion,direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,garaje,jardin,ascensor,balcon,latitude,longitude,descripcion,id_usuario)
+    VALUES(UTC_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`
+    const params = [direccion,provincia,ciudad,precio_piso,m2,habitaciones,baños,garaje,jardin,ascensor,balcon,latitude,longitude,descripcion,id_usuario]
 
     const result =await performQuery(query,params)
     return result
@@ -186,6 +196,8 @@ const getHome = async(id) => {
     p.jardin,
     p.descripcion,
     p.id_usuario,
+    p.latitude,
+    p.longitude,
     u.nombre,
     avg(r.score_piso) "score_piso" FROM piso p left join reserva r on p.id=r.id_piso right join usuario u on p.id_usuario=u.id where p.id=?`
     const params = [id]
@@ -416,6 +428,7 @@ const homeBookings = async(id) => {
     r.fecha_entrada,
     r.fecha_salida,
     r.precio_reserva,
+    r.score_usuario,
     r.estado
     from reserva r join usuario u on r.id_usuario=u.id where r.id_piso = ?`
     const params = [id]

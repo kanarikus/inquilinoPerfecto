@@ -4,7 +4,8 @@ const bcrypt = require('bcrypt');
 const faker = require("faker/locale/es");
 const { getConnection } = require("./db");
 const {random} = require("lodash");
-const {dateToDB,sevenDays} = require('../utils/moment')
+const {dateToDB,sevenDays} = require('../utils/moment');
+const { fake } = require('faker/locale/es');
 
 async function main() {
   let connection;
@@ -49,6 +50,8 @@ async function main() {
       ascensor enum('si','no') default 'no',
       balcon enum('si','no') default 'no',
       jardin enum('si','no') default'no',
+      latitude decimal(12,8),
+      longitude decimal(12,8),
       descripcion text,
       id_usuario int unsigned not null,
       fecha_publicacion timestamp default current_timestamp,
@@ -110,7 +113,7 @@ async function main() {
             "Activo")
           `);
     }
-    console.log(`tabla usuarios creados`);
+    console.log(`tabla usuarios rellenada`);
     
     let pisos = 300;
     for (let i = 1; i <= pisos; i++) {
@@ -125,6 +128,9 @@ async function main() {
     const jardin = faker.random.arrayElement(['si','no']);
     const ascensor = faker.random.arrayElement(['si','no']);
     const balcon = faker.random.arrayElement(['si','no']);
+    const latitude = faker.address.latitude()
+    const descripcion = faker.lorem.paragraph(2,false)
+    const longitude = faker.address.longitude()
     const id_usuario = random(1, 100);
     await connection.query(`
           insert into piso (
@@ -139,6 +145,9 @@ async function main() {
             ascensor,
             balcon,
             jardin,
+            latitude,
+            longitude,
+            descripcion,
             id_usuario)
             values (
             "${direccion}", 
@@ -152,11 +161,14 @@ async function main() {
             "${ascensor}",
             "${balcon}",
             "${jardin}",
+            "${latitude}",
+            "${longitude}",
+            "${descripcion}",
             "${id_usuario}"
             )
           `);
     }
-    console.log("pisos creados");
+    console.log("pisos rellenados");
 
     let reserva = 50;
     for (let i = 1;i<=reserva;i++) {

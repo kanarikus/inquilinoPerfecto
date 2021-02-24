@@ -75,16 +75,18 @@ const sameBookin = async (req,res,next) => {
         const decodedToken = jwt.verify(authorization,process.env.SECRET)
         const {id} = await db.getUser(decodedToken.email)
         const userid = await db.getBookingHomeOwner(bookinId)
-        const id_usuario = userid.owner_id
-        console.log(id_usuario)
-        if(id_usuario !== id ) {
-            return
+        const id_usuario = userid.id_usuario
+        const owner_id = userid.owner_id
+        console.log(id_usuario,id)
+        if(id_usuario === id || id ===owner_id) {
+            next()
+        }else{
+            res.status(403).send()
         }
     }catch(e) {
         console.log(e)
         res.status(406).send()
     }
-    next()
 }
 
 module.exports = {
