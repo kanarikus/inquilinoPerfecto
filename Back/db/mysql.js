@@ -63,7 +63,7 @@ const getUserId = async(id) =>{
     u.role,
     u.descripcion,
     avg(r.score_usuario) "score_usuario",
-    count(r.score_usuario) "count_usuario" from usuario u join reserva r on u.id=r.id_usuario where id = ?`
+    count(r.score_usuario) "count_usuario" from usuario u left join reserva r on u.id=r.id_usuario where id = ?`
     const params = [id]
     const [result] =await performQuery(query,params)
     return result
@@ -304,8 +304,11 @@ const getbooking = async (id) => {
     r.fecha_entrada,
     r.fecha_salida,
     r.score_piso,
+    p.id,
     p.ciudad,
     p.direccion,
+    p.image,
+    r.estado,
     r.score_usuario from reserva r join piso p on r.id_piso=p.id where r.id_reserva = ?`
     const params = [id]
     const result = await performQuery(query,params)
@@ -324,6 +327,7 @@ const getListOfBooking = async(id) => {
     p.id,
     p.direccion,
     p.ciudad,
+    p.image,
     r.precio_reserva,
     r.fecha_entrada,
     r.fecha_salida

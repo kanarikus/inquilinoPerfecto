@@ -28,7 +28,6 @@ const deleteUser = async(req,res) => {
 const updateUser = async (req,res) => {
     const {id} = req.params
     const user = await db.getUserId(id)
-
     const {
         nombre,
         apellidos,
@@ -39,14 +38,20 @@ const updateUser = async (req,res) => {
     } = req.body
     
     if(req.files) {
+        try{
         const fileID = uuid.v4()
         const outputFileName = `${process.env.TARGET_FOLDER}/${fileID}.jpg`
         await fsPromises.writeFile(outputFileName,req.files.image.data)
         await db.saveUserImage(fileID,id)
-        res.send()
+        res.send() 
+        }catch(e){
+            res.status(403).send()
+        }
+        
     }
     try{
         //await updateUserValidator.validateAsync(req.body)
+        
         await db.updateUser(nombre,apellidos,provincia,ciudad,telf,descripcion,id)
     }catch(e){
         let statusCode = 400;
@@ -60,6 +65,7 @@ const updateUser = async (req,res) => {
     }
     res.send({...user,password:'*'})
 }
+
 
 
 const updateUserPassword = async (req, res) => {
