@@ -1,6 +1,6 @@
 .main-listhomes{
+    width: 700px;
     margin: auto;
-    width: 60vw;
     font-family: 'quicksandlight';
     display: flex;
     flex-direction: column;

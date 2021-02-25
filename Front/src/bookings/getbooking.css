@@ -1,4 +1,7 @@
 .booking-container{
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-evenly;
     font-family: 'quicksandlight';
     border: 1px solid black;
     border-radius: 10px;
@@ -9,4 +12,42 @@
 
 .booking-container h1{
     font-family: 'lobster_twobold_italic';
+}
+
+.booking-image {
+    margin-top: 30px;
+    width: 200px;
+    height: 250px;
+    background-size: cover;
+    border-radius: 10px;
+    box-shadow: 3px 3px 5px;
+    background-image: url('../front-images/edificio-de-oficinas.png');
+}
+
+.booking-info{
+    text-align: left;
+}
+
+.buttons{
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.booking-moreinfo{
+    font-family: 'quicksandlight';
+    margin-top: 30px;
+    height: 30px;
+    transition: 0.2s ease;
+    background: none;
+    border: none;
+}
+
+.booking-moreinfo:hover{
+    cursor: pointer;
+    transform: scale(1.15);
+    background: rgba(82, 119, 141, 0.253);
+    border: none;
+    box-shadow: 3px 3px 5px;
 }

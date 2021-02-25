@@ -5,6 +5,9 @@
     background-repeat: no-repeat;
     border-radius: 10px;
     margin-left: 40px;
+    background-image: url('../front-images/edificio-de-oficinas.png');
+    box-shadow: 4px 4px 10px black;
+
 }
 
 .homedata{

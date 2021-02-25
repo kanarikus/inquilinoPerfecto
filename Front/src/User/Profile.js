@@ -23,7 +23,7 @@ function Profile() {
         <div className='main-profile'>
             {data&&
             <div className='profile-container'>
-                <div className='avatar' style={avatarStyle}/>
+                {data.image?<div className='avatar' style={avatarStyle}/>:<div/>}
                 <span><b>Nombre:</b>  {data.nombre}</span>
                 <span><b>Email:</b>  {data.email}</span>
                 <span><b>Ciudad:</b>  {data.ciudad}</span>
@@ -31,10 +31,13 @@ function Profile() {
                 <span><b>Telf: </b> {data.telf}</span>
                 <span><b>sobre mi:</b> {data.descripcion}</span>
                 <span><b>Valoración media</b><br/>({data.count_usuario})<Rating value={data.score_usuario}/></span>
-                <button onClick={handleProfile}><div className='edit-profile'/></button>
+                {data.id===login.id?<button onClick={handleProfile}><div className='edit-profile'/></button>:
+                <div/>}
+                
                 
             </div>
             }
+            <div className='tabs-container'>
             <Tabs/>
 
             <Switch>
@@ -45,6 +48,8 @@ function Profile() {
                     <UserHomes/>
                 </Route>
             </Switch>
+            </div>
+            
         </div>
         
     )

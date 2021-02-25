@@ -1,0 +1,16 @@
+.ButonDownenabled {
+    height: 15px;
+    width: 15px;
+    background: url('../front-images/flecha-hacia-abajo-para-navegar.png');
+    background-size: contain;
+    transition: 0.3s ease;
+    transform: rotate(180deg);
+}
+
+.ButonDowndisabled{
+    height: 15px;
+    width: 15px;
+    background-image: url('../front-images/flecha-hacia-abajo-para-navegar.png');
+    background-size: cover;
+    transition: 0.3s ease;
+}

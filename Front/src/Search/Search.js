@@ -61,11 +61,11 @@ function Search({data}) {
     
     console.log(data)
 
-    const paginatedData1 = data ? data.slice(5*(page-1),page*5) : []
-    const max1 = data ? Math.ceil(data.length/5) : []
+    const paginatedData1 = data ? data.slice(3*(page-1),page*3) : []
+    const max1 = data ? Math.ceil(data.length/3) : []
 
-    const paginatedData = results ? results.slice(5*(page-1),5*page) : []
-    const max = results ? Math.ceil(results.length/5) : []
+    const paginatedData = results ? results.slice(3*(page-1),3*page) : []
+    const max = results ? Math.ceil(results.length/3) : []
 
     return(
         <div className='search-page'>

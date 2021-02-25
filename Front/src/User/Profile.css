@@ -2,9 +2,9 @@
     font-family: 'quicksandlight';
     text-align: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-direction:row;
+    justify-content: space-evenly;
+    align-items: flex-start;
     
 }
 
@@ -12,7 +12,7 @@
     background:linear-gradient(180deg,yellow,rgb(248, 135, 6));
     border: 1px solid black;
     border-radius: 10px;
-    margin-top: 50px;
+    margin: 50px;
     height: 700px;
     width: 30vw;
     padding: 20px 30px 10px 30px;
@@ -27,7 +27,7 @@
     width: 350px;
 }
 
-.avatar{
+.profile-container .avatar{
     border-radius: 10px;
     height: 250px;
     width: 180px;

@@ -79,6 +79,7 @@ textarea{
     background-repeat: no-repeat;
     height: 30px;
     width: 30px;
+    margin: 15px;
     border-radius: 5px;
     transition-duration: 0.5s;
 }
@@ -88,6 +89,6 @@ textarea{
     transform: scale(1.2);
 }
 
-/* .uploadimage-home{
+.uploadimage-home{
     display:none;
-} */
+}

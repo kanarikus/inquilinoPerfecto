@@ -14,15 +14,17 @@ function UpdateUserWrapper () {
 function UpdateUser({ data }) {
     const history = useHistory()
     const login = useSelector(s=>s.login)
+    
     const {id} = useParams()
     const ref= useRef()
-    
+    console.log(login.id,id)
     const [name,setName] = useState(data.nombre ||'')
     //const [email,setEmail] = useState(data.email||'')
     const [provincia,setProvincia] = useState(data.Provincia|| '')
     const [ciudad,setCiudad] = useState(data.ciudad || '')
     const [telf,setTelf] = useState(data.telf || '')
     const [descripcion,setDescripcion] = useState(data.descripcion || '')
+    const [preview,setPreview]= useState(null)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -43,9 +45,18 @@ function UpdateUser({ data }) {
         history.push(`/user/profile/${id}`)
     }
 
+    const handlePreview= e =>{
+        e.preventDefault()
+        setPreview(URL.createObjectURL(e.target.files[0]))
+    }
+
     const handlePick = e => {
         e.preventDefault()
         ref.current.click()
+    }
+
+    if(parseInt(id) !== login.id) {
+        throw new Error()
     }
 
     const avatarUrl = data.image && `http://localhost:9999/imagen/${data.image}.jpg`
@@ -57,8 +68,9 @@ function UpdateUser({ data }) {
                 <label className='avatar-picker'>
                     <span>Foto de perfil:</span>
                     <div className='value'>
-                        <div className='updateuser-image' style={avatarStyle}/>
-                        <input ref={ref} name='avatar' className='uploadimage-input' type='file' accept='image/*'/>
+                        {preview? <div className='image-preview' style={{backgroundImage: `url(${preview})`}}/>:
+                        <div className='updateuser-image' style={avatarStyle}/>}
+                        <input ref={ref} name='avatar' onChange={handlePreview} className='uploadimage-input' type='file' accept='image/*'/>
                         <button className='uploadimage' onClick={handlePick}/>
                     </div>
                 </label>

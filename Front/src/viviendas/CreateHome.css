@@ -1,22 +1,47 @@
 .create-home{
     font-family: 'quicksandlight';
+    display: flex;
+    justify-content: space-evenly;
+    height: 110vh;
 }
+
 
 .create-form{
     border: 1px solid black;
     border-radius: 20px;
-    margin: 10vh auto 10vh;
-}
-
-.create-form{
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
     align-items: center;
-    height: 70vh;
-    width: 50vw;
+    min-height: 70vh;
+    width: 30vw;
     padding: 10px;
-    background: linear-gradient(180deg,rgb(214, 214, 16),rgb(204, 101, 5));
+    background: linear-gradient(180deg,yellow,rgb(252, 125, 7));
+}
+
+.create-form input:not([type=checkbox]){
+    border-style: none;
+    height: 4vh;
+    width: 15vw;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.createform-checks{
+    margin: 15px 10px;
+    padding:5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+}
+
+.createform-checks label{
+    display:flex;
+    flex-direction: column;
+    width: 70px;
+    align-items: center;
 }
 
 .create-form input {
@@ -24,10 +49,17 @@
     box-shadow: black;
     margin-bottom: 5px;
 }
-.create-form textarea{
-    margin-bottom: 5px;
-}
-.create-form button{
-    border-radius: 10px;
 
+.create-form button{
+    display: none;
+
+}
+
+.map-container{
+    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 4px 4px 6px;
+    width: 35vw;
+    height: 45vh;
+    padding: 15px;
 }

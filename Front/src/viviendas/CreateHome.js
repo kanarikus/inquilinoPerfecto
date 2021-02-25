@@ -1,4 +1,4 @@
-import { useState} from 'react'
+import { useRef, useState} from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import NewMap from '../utils/NewMap'
@@ -9,8 +9,10 @@ function CreateHome() {
     const center = {
         lat: 42.2260838,
         lng: -8.7604452,
-      }
+    }
 
+    const ref=useRef()
+    const refa=useRef()
     const login = useSelector(l=>l.login)
     //console.log(login.token)
     const [direccion,setDireccion] = useState('')
@@ -26,6 +28,7 @@ function CreateHome() {
     const [balcon,setBalcon] = useState(false)
     const [descripcion,setDescripcion] = useState('')
     const [position,setPosition] = useState(center)
+    const [preview,setPreview] = useState(null)
     const latitude = position.lat 
     const longitude = position.lng
     const history = useHistory()
@@ -60,6 +63,21 @@ function CreateHome() {
             console.log('error')
         }
     }
+
+    const handlePick = e => {
+        e.preventDefault()
+        ref.current.click()
+    }
+
+    const handlePhoto = e => {
+        e.preventDefault()
+        refa.current.click()
+    }
+
+    const handlePreview= e =>{
+        e.preventDefault()
+        setPreview(URL.createObjectURL(e.target.files[0]))
+    }
     
     const handlePosition = newposition => {
         setPosition(newposition)
@@ -71,8 +89,9 @@ function CreateHome() {
                 <label>
                     <span>Foto del piso</span>
                     <div>
-                        <div/>
-                        <input name='homeimage' type='file' accept='image/*'/>
+                    {preview&&<div className='image-preview' style={{backgroundImage: `url(${preview})`}}/>}
+                        <input ref={refa} className='uploadimage-home' name='homeimage' onChange={handlePreview} type='file' accept='image/*'/>
+                        <div className='upload-image' onClick={handlePhoto}/>
                     </div>
                 </label>
                 <label>
@@ -103,21 +122,27 @@ function CreateHome() {
                     Baños
                 </label>
                 <input name='baños' type='number' value={baños} placeholder='Baños' onChange={e=>setBaños(e.target.value)}/>
-                <div>
-                    <label>Garaje</label>
-                    <input type='checkbox' checked={garaje} onChange={e=>setGaraje(e.target.checked)}/>
-                    <label>Jardin</label>
-                    <input type='checkbox' checked={jardin} onChange={e=>setJardin(e.target.checked)}/>
-                    <label>Ascensor</label>
-                    <input type='checkbox' checked={ascensor} onChange={e=>setAscensor(e.target.checked)}/>
-                    <label>Balcon</label>
-                    <input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/>
+                <div className='createform-checks'>
+
+                    <label>Garaje<input type='checkbox' checked={garaje} onChange={e=>setGaraje(e.target.checked)}/></label>
+                    
+                    <label>Jardin<input type='checkbox' checked={jardin} onChange={e=>setJardin(e.target.checked)}/></label>
+                    
+                    <label>Ascensor<input type='checkbox' checked={ascensor} onChange={e=>setAscensor(e.target.checked)}/></label>
+                    
+                    <label>Balcon<input type='checkbox' checked={balcon} onChange={e=>setBalcon(e.target.checked)}/></label>
+                    
                 </div>
                 <label>Descripción</label>
-                <textarea value={descripcion} onChange={e=>setDescripcion(e.target.value)} cols="40" rows="5"/>
-                <button>SUBIR PISO</button>
+                <textarea cols="65" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <button ref={ref} onChange={handleSubmit}>SUBIR PISO</button>
+                <div className='savebutton' onClick={handlePick}/>
             </form>
-            <NewMap position={position} center={center} onChange={handlePosition}/>
+            <div className='map-container'>
+                <h2>Marca donde está el piso</h2>
+                <NewMap position={position} center={center} onChange={handlePosition}/>
+            </div>
+            
         </div>
     )
 }

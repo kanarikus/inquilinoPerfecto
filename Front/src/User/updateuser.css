@@ -5,10 +5,11 @@
     align-items: center;
 }
 .updateuser-image{
-    width: 100px;
-    height: 150px;
+    width: 150px;
+    height: 200px;
     background-size: cover;
     margin: auto;
+    margin-bottom: 10px;
     background-image: url('../front-images/user.png');
 }
 
@@ -75,4 +76,11 @@
     background-size: cover;
     margin: auto;
     /* background-image: url(); */
+}
+
+.image-preview{
+    height: 200px;
+    width: 150px;
+    background-size: cover;
+    margin: auto;
 }

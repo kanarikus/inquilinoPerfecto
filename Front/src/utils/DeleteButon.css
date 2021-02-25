@@ -1,0 +1,18 @@
+
+.delete-buton{
+    font-family: 'quicksandlight';
+    margin-top: 30px;
+    height: 30px;
+    transition: 0.2s ease;
+    background: none;
+    border: none;
+}
+
+.delete-buton:hover{
+    cursor: pointer;
+    transform: scale(1.15);
+    background: rgba(243, 21, 5, 0.74);
+    border: none;
+    box-shadow: 3px 3px 5px red;
+    color: white;
+}

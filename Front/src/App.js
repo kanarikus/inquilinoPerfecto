@@ -5,7 +5,7 @@ import Login from './Auth/Login';
 import Register from './Auth/Register';
 import Recovery from './Auth/Recovery';
 import Reset from './Auth/Reset';
-import Header from './Header';
+import Header from './Home/Header';
 import Search from './Search/Search'
 import CreateHome from './viviendas/CreateHome';
 import Vivienda from './viviendas/Home';
@@ -16,6 +16,7 @@ import UserHomes from './User/UserHomes';
 import UserBookings from './User/UserBookings';
 import UpdateHome from './viviendas/UpdateHome';
 import GetBooking from './bookings/GetBooking';
+import ErrorBoundary from './ErrorBoundary';
 
 
 
@@ -42,16 +43,23 @@ function App() {
           <Search/>
         </Route>
         <Route path='/vivienda/:id' exact>
-          <Vivienda/>
+          <ErrorBoundary>
+            <Vivienda/>
+          </ErrorBoundary>
         </Route>
         <Route path='/createhome' exact>
-          <CreateHome/>
+          <ErrorBoundary>
+            <CreateHome/>
+          </ErrorBoundary>
         </Route>
         <Route path='/validate/:code' exact>
           <Validate/>
         </Route>
         <Route path='/user/update/:id' exact>
-          <UpdateUser/>
+          <ErrorBoundary>
+            <UpdateUser/>
+          </ErrorBoundary>
+          
         </Route>
         <Route path='/user/homes/:id' exact>
           <UserHomes/>
@@ -60,7 +68,9 @@ function App() {
           <UserBookings/>
         </Route>
         <Route path='/myhome/:id' exact>
-          <UpdateHome/>
+          <ErrorBoundary>
+            <UpdateHome/>
+          </ErrorBoundary>
         </Route>
         <Route path='/booking/:id' exact>
           <GetBooking/>

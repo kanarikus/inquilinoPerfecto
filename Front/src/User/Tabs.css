@@ -1,7 +1,6 @@
 .tabs {
     display: flex;
     margin: 20px 10px 0px;
-    position: relative;
 }
 .tabs a{
     width: 100px;
@@ -17,10 +16,10 @@
     background-color: rgb(245, 140, 2);
     transform: scale(1.15);
 }
-.tabs :hover{
+.tabs .active:hover{
     cursor: pointer;
 }
-.tabs::after{
+.active::after{
     background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
     height: 40px;
     content: '';

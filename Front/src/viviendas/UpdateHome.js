@@ -33,6 +33,7 @@ function UpdateHome({data}) {
     const [ascensor,setAscensor] = useState(data.ascensor||'')
     const [balcon,setBalcon] = useState(data.balcon||'')
     const [descripcion,setDescripcion] = useState(data.descripcion || '')
+    const [preview,setPreview] = useState(null)
     const history = useHistory()
 
     const handleSubmit = async e => {
@@ -60,6 +61,11 @@ function UpdateHome({data}) {
         })
         history.push(`/vivienda/${id}`)
     }
+
+    const handlePreview= e =>{
+        e.preventDefault()
+        setPreview(URL.createObjectURL(e.target.files[0]))
+    }
     
     const handlePick = e => {
         e.preventDefault()
@@ -77,9 +83,10 @@ function UpdateHome({data}) {
             {data&&(id_usuario === data.id_usuario)&&
             <form onSubmit={handleSubmit} className='form-container'>
                 <h1>Mi piso</h1>
-                <div className='updatehome-image'
-                    style={data.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${data.image}.jpg`+')'}}/>
-                <input ref={refa} name='avatar' className='uploadimage-home' type='file' accept='image/*'/>
+                {preview?<div className='image-preview' style={{backgroundImage: `url(${preview})`}}/>:
+                    <div className='updatehome-image'
+                    style={data.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${data.image}.jpg`+')'}}/>}
+                <input ref={refa} name='avatar' onChange={handlePreview} className='uploadimage-home' type='file' accept='image/*'/>
                 <div className='upload-image' onClick={handlePhoto}/>
                 <label>
                     Dirección
@@ -120,7 +127,7 @@ function UpdateHome({data}) {
                     
                 </div>
                 <label>Descripción</label>
-                <textarea cols="40" rows="8" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <textarea cols="40" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
                 <button ref={ref} onChange={handleSubmit}></button>
                 <div className='savebutton' onClick={handlePick}/>
             </form>}
