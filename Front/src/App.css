@@ -27,9 +27,12 @@
 
 .App {
   text-align: center;
+  padding-bottom: 300px;
 }
 .page{
-  margin-top: 50px;
+  height: 120vh;
+  background: rgb(255,240,8);
+  background: radial-gradient(circle, rgba(255,240,8,1) 0%, rgba(255,171,23,1) 29%, rgba(255,154,40,1) 59%, rgba(237,103,0,1) 79%, rgba(237,103,0,1) 91%);
 }
 
 .headerContainer {
@@ -37,7 +40,8 @@
   justify-content: space-between;
   align-items: center;
   height: 50px;
-  background:linear-gradient(90deg,yellow,rgb(248, 135, 6));
+  background: rgb(233,226,199);
+  background: linear-gradient(45deg, rgba(233,226,199,1) 1%, rgba(162,147,111,1) 28%, rgba(107,96,80,1) 62%, rgba(233,226,199,1) 94%);
 }
 textarea{
   resize: none;
@@ -80,13 +84,6 @@ textarea{
   border-radius: 50%;
   background-size: cover;
 }
-
-/* .loginContainer .flecha-abajo{
-  height: 15px;
-  width: 15px;
-  background: url('./front-images/flecha-hacia-abajo-para-navegar.png') no-repeat;
-  background-size: contain;
-} */
 
 
 .mainsearch{

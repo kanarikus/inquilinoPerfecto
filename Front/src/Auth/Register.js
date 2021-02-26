@@ -1,14 +1,13 @@
 import {useState} from 'react'
-// import {useDispatch,useSelector} from 'react-redux'
-// import { Redirect } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import './register.css'
 
 
 function Register() {
 
-    //const dispatch = useDispatch()
-    //const register = useSelector(r=>r.register)
     const [user,setUser] = useState({})
     const [error,setError] = useState()
+    const history = useHistory()
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -19,6 +18,7 @@ function Register() {
                 body:JSON.stringify(user)
             })
             setUser('')
+            history.push('/')
         }catch(e) {
             console.warn(e)
             setError(true)
@@ -27,47 +27,32 @@ function Register() {
 
 
     return(
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className='register-container'>
             <h3>Regístrate!</h3>
+            <label>Email</label>
             <input name="email"
             required
-            placeholder="email..."
+            placeholder="Introduce tu email..."
             value={user.email || ''}
             onChange={e=>setUser({...user,email:e.target.value})}
             />
+            <label>Contraseña</label>
             <input
             name='password'
             type='password'
             required
-            placeholder='Contraseña...'
+            placeholder='Introduce tu contraseña...'
             value={user.password || ''}
             onChange = {e=> setUser({...user,password: e.target.value})}
             />
+            <label>Ciudad</label>
             <input
             name='ciudad'
-            placeholder='Ciudad...'
+            placeholder='Introduce tu ciudad...'
             required
             value={user.ciudad || ''}
             onChange={e=>setUser({...user,ciudad:e.target.value})}
             />
-            {/* <input
-            name='nombre'
-            placeholder='Nombre...'
-            value={user.nombre || ''}
-            onChange={e=>setUser({...user,nombre:e.target.value})}
-            />
-            <input
-            name='Provincia'
-            placeholder='Provincia...'
-            value={user.Provincia || ''}
-            onChange={e=>setUser({...user,Provincia:e.target.value})}
-            />
-            <input
-            name='telf'
-            placeholder='Teléfono...'
-            value={user.telf || ''}
-            onChange={e=>setUser({...user,telf:e.target.value})}
-            /> */}
             <button>Regístrate</button>
             {error&&
                 <div>

@@ -1,0 +1,67 @@
+
+.login-container{
+    font-family: 'quicksandlight';
+    margin: auto;
+    border-radius: 10px;
+    box-shadow: 4px 4px 7px;
+    height: 400px;
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    background: rgb(221,221,221);
+    background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
+}
+
+.login-container a{
+    text-decoration: none;
+}
+
+.login-container button{
+    width: 70px;
+    background: yellow;
+    border-radius: 10px;
+    transition: 0.2s ease;
+}
+
+.login-container button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+}
+
+.login-container h3{
+    font-family: 'lobster_twoitalic';
+    font-size: 200%;
+}
+
+.input-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    text-align: center;
+    height: 100px;
+}
+.spinner-login {
+    background-image: url('../img/logo.svg');
+    height: 50px;
+    width: 50px;
+    animation: spin 1s linear infinite;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+
+.link-div{
+    display: flex;
+    flex-direction: column;
+}
+@keyframes spin {
+    0%{
+        transform: rotateY(0deg);
+    }
+    100%{
+        transform: rotateY(360deg)
+    }
+}

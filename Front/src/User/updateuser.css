@@ -3,6 +3,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    height: 100vh;
+    padding-bottom: 300px;
 }
 .updateuser-image{
     width: 150px;
@@ -18,12 +20,13 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
-    height: 100vh;
-    width: 50vw;
+    height: 90vh;
+    width: 35vw;
     margin-bottom: 30px;
     border: 1px solid black;
     border-radius: 10px;
-    background:linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    background: rgb(221,221,221);
+    background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
 }
 
 .save-uploadedprofile{

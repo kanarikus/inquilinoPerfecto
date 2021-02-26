@@ -5,9 +5,9 @@
 .tabs a{
     width: 100px;
     border: 1px solid rgb(5, 5, 4);
-    border-bottom: 1px solid rgb(245, 133, 5);
+    border-bottom: 1px solid rgb(150, 149, 149);
     padding:  8px 5px;
-    background-color: yellow;
+    background-color: rgb(150, 149, 149);
     text-decoration: none;
     color: black;
 }
@@ -16,7 +16,7 @@
     background-color: rgb(245, 140, 2);
     transform: scale(1.15);
 }
-.tabs .active:hover{
+.tabs a:hover{
     cursor: pointer;
 }
 .active::after{

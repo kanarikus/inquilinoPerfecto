@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import {useParams} from 'react-router-dom'
+import './recovery.css'
 
 function Reset() {
     const {code} = useParams()
@@ -22,12 +23,10 @@ function Reset() {
     )
     
     return(
-        <form className='password reset' onSubmit={handleSubmit}>
-            Introduce tu nueva contraseña
-            <div>
-                <input placeholder='Contraseña...' type='password' required
+        <form className='password-reset' onSubmit={handleSubmit}>
+            <h3>Introduce tu nueva contraseña</h3>
+            <input placeholder='Contraseña...' type='password' required
                 value={password} onChange={e=>setPassword(e.target.value)}/>
-            </div>
             <button>Cambiar contraseña</button>
         </form>
     )

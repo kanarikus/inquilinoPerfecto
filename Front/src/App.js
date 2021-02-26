@@ -17,6 +17,7 @@ import UserBookings from './User/UserBookings';
 import UpdateHome from './viviendas/UpdateHome';
 import GetBooking from './bookings/GetBooking';
 import ErrorBoundary from './ErrorBoundary';
+import Footer from './utils/Footer';
 
 
 
@@ -24,13 +25,15 @@ function App() {
   return (
     <div className="App">
       <Header/>
+      <div className='page'>
       <Switch>
         <Route path="/" exact>
           <Home/>
         </Route>
-      <div className='page'> 
         <Route path="/login" exact>
           <Login/>
+        </Route>
+        <Route path='/register' exact>
           <Register/>
         </Route>
         <Route path="/recovery" exact>
@@ -59,7 +62,6 @@ function App() {
           <ErrorBoundary>
             <UpdateUser/>
           </ErrorBoundary>
-          
         </Route>
         <Route path='/user/homes/:id' exact>
           <UserHomes/>
@@ -78,9 +80,9 @@ function App() {
         <Route path='/user/profile/:id'>
           <Profile/>
         </Route>
-      </div> 
       </Switch>
-      
+      <Footer/>
+      </div>
     </div>
   );
 }

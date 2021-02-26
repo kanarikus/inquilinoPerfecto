@@ -1,0 +1,14 @@
+
+.footer-container{
+    height: 300px;
+    position:fixed;
+    width: 100%;
+    bottom: 0;
+    left: 0;
+    font-family: 'quicksandlight';
+    z-index: -2;
+    background: rgb(142, 208, 246);
+    background: radial-gradient(circle,rgba(142,208,243,1)0%,rgba(20,56,64,1)89%);
+    display: flex;
+    justify-content: space-evenly;
+}

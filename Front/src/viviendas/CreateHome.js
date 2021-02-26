@@ -84,6 +84,8 @@ function CreateHome() {
     }
 
     return(
+        <div className='createhome-page'>
+            <h1>Sube tu piso!</h1>
         <div className='create-home'>
             <form className='create-form' onSubmit={handleSubmit}>
                 <label>
@@ -134,15 +136,17 @@ function CreateHome() {
                     
                 </div>
                 <label>Descripción</label>
-                <textarea cols="65" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <textarea cols="50" rows="8" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
                 <button ref={ref} onChange={handleSubmit}>SUBIR PISO</button>
                 <div className='savebutton' onClick={handlePick}/>
             </form>
-            <div className='map-container'>
-                <h2>Marca donde está el piso</h2>
+            <div className='create-map'>
+                <h2>Dinos donde está tu piso</h2>
                 <NewMap position={position} center={center} onChange={handlePosition}/>
             </div>
+        
             
+        </div>
         </div>
     )
 }

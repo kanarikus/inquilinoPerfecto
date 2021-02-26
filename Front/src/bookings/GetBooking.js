@@ -24,7 +24,7 @@ function GetBooking ({data}) {
     
     if(!data) return <div>Loading....</div>
     return(
-        <div >
+        <div className='pipo'>
             <h1>Tu reserva</h1>
             {data.map(d=>
                 <div key={d.id} className='booking-container'>
@@ -32,7 +32,7 @@ function GetBooking ({data}) {
                     style={d.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${d.image}.jpg`+')'}}/>
                     <section className='booking-info'>
                         <h2>{d.ciudad}</h2>
-                        <p><b>{d.precio_reserva}€</b></p>
+                        <h3><b>{d.precio_reserva}€</b></h3>
                         <p>Dirección<br/><b>{d.direccion}</b></p>
                         <p>CheckIn:<br/><b>{moment(d.fecha_entrada).format('DD-MM-YYYY')}</b></p>
                         <p>CheckOut:<br/><b>{moment(d.fecha_salida).format('DD-MM-YYYY')}</b></p>

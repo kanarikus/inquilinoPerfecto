@@ -3,6 +3,7 @@
     flex-direction: column;
     margin-top: 1px;
     max-width: 100px;
+    z-index: 2;
 }
 .dropdown-picker .dropdown{
     font-family: 'quicksandlight';
@@ -19,6 +20,7 @@
     width: 150px;
     border-radius: 7px;
     padding: 10px;
+    z-index: 2;
 }
 
 .dropdown a{

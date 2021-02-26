@@ -127,12 +127,13 @@ function UpdateHome({data}) {
                     
                 </div>
                 <label>Descripción</label>
-                <textarea cols="40" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <textarea cols="50" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
                 <button ref={ref} onChange={handleSubmit}></button>
                 <div className='savebutton' onClick={handlePick}/>
             </form>}
             <div>
-                <HomeBookings/>
+                {data&&data.id_usuario===id_usuario?<HomeBookings/>:''}
+                
             </div>
         </div>
     )

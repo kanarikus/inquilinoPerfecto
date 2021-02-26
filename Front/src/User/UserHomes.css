@@ -1,17 +1,21 @@
 .main-listhomes{
     width: 700px;
+    height: 40vh;
+    padding-bottom: 300px;
     margin: auto;
     font-family: 'quicksandlight';
     display: flex;
     flex-direction: column;
     color: black;
-    background: linear-gradient(0deg,yellow,rgb(248, 135, 6));
+    background: rgb(221,221,221);
+    background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
     margin-bottom: 20px;
     border-radius: 10px;
-    border: 1px solid black;
+    box-shadow: 4px 4px 6px black;
 }
 
 .main-listhomes a{
+    
     margin: 10px 30px;
     text-decoration: none;
     color: black;
@@ -23,6 +27,7 @@
 }
 
 #listhome{
+    background: rgb(160, 159, 159);
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -37,7 +42,23 @@
     width: 150px;
     background-size: cover;
     margin: 10px 40px;
+    box-shadow: 4px 4px 6px;
 }
-.myhomes-content {
-    margin: 10px 80px;
+
+
+.more-info{
+    width: 100px;
+    font-family: 'quicksandlight';
+    margin: 0;
+    height: 30px;
+    transition: 0.2s ease;
+    text-align: center;
+    padding-top: 5px;
+}
+.more-info:hover{
+    cursor: pointer;
+    transform: scale(1.15);
+    background: rgba(37, 156, 224, 0.541);
+    border: none;
+    box-shadow: 3px 3px 5px;
 }

@@ -16,7 +16,6 @@
     height: 70vh;
     position: absolute;
     top: 20vh;
-    z-index: -1;
 }
 
 .homelist {
@@ -26,6 +25,7 @@
 }
 .all-mainsearch {
     color: white;
+    z-index: 1;
 }
 .mainsearch h1 {
     margin: 0;

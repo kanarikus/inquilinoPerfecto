@@ -4,14 +4,13 @@
     font-family:'quicksandlight';
 }
 
-
 .form-container{
     display: flex;
     flex-direction: column;
     align-items: center;
-    border: 1px solid black;
     border-radius: 10px;
-    background: linear-gradient(180deg,yellow,rgb(248, 135, 6));
+    background: rgb(221,221,221);
+    background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
     box-shadow: 3px 3px 5px black;
     width: 35vw;
     height: 100vh;
@@ -19,8 +18,8 @@
 }
 
 .updatehome-image{
-    height: 100px;
-    width: 100px;
+    height: 200px;
+    width: 150px;
     border-radius: 10px;
 
 }

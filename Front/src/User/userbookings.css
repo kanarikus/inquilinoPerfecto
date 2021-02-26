@@ -1,33 +1,38 @@
 
 .bookings-container {
     width: 700px;
+    height: 40vh;
+    padding-bottom: 300px;
     margin: auto;
     font-family: 'quicksandlight';
     display: flex;
     flex-direction: column;
     color: black;
-    background: linear-gradient(0deg,yellow,rgb(248, 135, 6));
+    background: rgb(221,221,221);
+    background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
     margin-bottom: 20px;
     border-radius: 10px;
-    border: 1px solid black;
+    box-shadow: 4px 4px 6px;
 }
 
 .bookings-container a {
     margin: 10px 30px;
     text-decoration: none;
+    border-radius: 10px;
     color: black;
-    transition: all 0.3s ease;
 }
 
-.bookings-container a:hover{
+.list-bookings:hover{
     transform: scale(1.05);
 }
 
 .list-bookings {
     display: flex;
     justify-content: space-evenly;
-    border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
     margin: 10px;
+    transition: all 0.3s ease;
+    border: 1px solid black;
+    background: rgb(160, 159, 159);
 }

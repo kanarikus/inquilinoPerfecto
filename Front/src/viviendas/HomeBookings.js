@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import AcceptorDeclineBooking from "../bookings/AcceptorDeclinedBooking"
 import PisoScore from "../Score/PisoScore"
 import Rating from "../Score/Score"
@@ -15,8 +15,8 @@ function HomeBookings() {
     return(
         <div className='homebooking-container'>
             {data&&data.map(d=>
-                <section className='homebooking-contain'>
-                    <h4>{d.nombre}</h4>
+                <section className='homebooking-contain' key={d.id_reserva}>
+                    <h4><Link to={`/user/profile/${d.id}`}><b>{d.nombre}</b></Link></h4>
                     <p>Ha solicitado el día <b>{moment(d.fecha_reserva).format('DD-MM-YYYY')}</b> una reserva para este piso para las fechas entre
                         <b>{moment(d.fecha_entrada).format('DD-MM-YYYY')}</b> y <b>{moment(d.fecha_salida).format('DD-MM-YYYY')}</b> por la cantidad de <b>{d.precio_reserva}</b>€.
                     </p>

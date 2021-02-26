@@ -81,13 +81,6 @@ function UpdateUser({ data }) {
                     value = {name}
                     onChange={e=>setName(e.target.value)}/>
                 </label>
-                {/* <label>
-                    <span>email:</span>
-                    <input
-                    type='email'
-                    value={email}
-                    onChange={e=>setEmail(e.target.value)}/>
-                </label> */}
                 <label>
                     <span>Provincia:</span><br/>
                     <input
@@ -112,7 +105,7 @@ function UpdateUser({ data }) {
                 <label>
                     <span>Descripción:</span><br/>
                     <textarea
-                    cols="40" rows="8"
+                    cols="50" rows="8"
                     value={descripcion}
                     onChange={e=>setDescripcion(e.target.value)}
                     />

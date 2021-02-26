@@ -9,7 +9,7 @@ function Header() {
     
     const avatarUrl = login&&login.image && (`http://localhost:9999/imagen/${login.image}.jpg`)
     const  avatarStyle = login&&login.image&&{backgroundImage: 'url('+ avatarUrl+')'}
-    console.log(avatarUrl)
+   
 
     return(
         <header className='headerContainer'>

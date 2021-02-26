@@ -24,13 +24,13 @@ function Profile() {
             {data&&
             <div className='profile-container'>
                 {data.image?<div className='avatar' style={avatarStyle}/>:<div/>}
-                <span><b>Nombre:</b>  {data.nombre}</span>
-                <span><b>Email:</b>  {data.email}</span>
-                <span><b>Ciudad:</b>  {data.ciudad}</span>
-                <span><b>Provincia:</b>  {data.Provincia}</span>
-                <span><b>Telf: </b> {data.telf}</span>
-                <span><b>sobre mi:</b> {data.descripcion}</span>
-                <span><b>Valoración media</b><br/>({data.count_usuario})<Rating value={data.score_usuario}/></span>
+                <span><b>Nombre:<br/></b>  {data.nombre}</span>
+                <span><b>Email:<br/></b>  {data.email}</span>
+                <span><b>Ciudad:<br/></b>  {data.ciudad}</span>
+                <span><b>Provincia:<br/></b>  {data.Provincia}</span>
+                <span><b>Telf: <br/></b> {data.telf}</span>
+                <span><b>sobre mi:<br/></b> {data.descripcion}</span>
+                <span><b>Valoración media<br/></b><br/>({data.count_usuario})<Rating value={data.score_usuario}/></span>
                 {data.id===login.id?<button onClick={handleProfile}><div className='edit-profile'/></button>:
                 <div/>}
                 

@@ -9,6 +9,7 @@ const queryString = require('query-string')
 
 function SearchWrapper() {
     const {ciudad} = useParams()
+    console.log('hola')
     const parsed = queryString.parse(window.location.search)
     const stringified = queryString.stringify(parsed)
     const data = useFetch('http://localhost:9999/vivienda/busqueda?'
@@ -34,7 +35,6 @@ function Search({data}) {
     const [jardin,setJardin] = useState(false)
     const [ascensor,setAscensor] = useState(false)
     const [balcon,setBalcon] = useState(false)
-    const [results]=useState('')
 
     const parsed = queryString.parse(window.location.search)
     
@@ -47,25 +47,29 @@ function Search({data}) {
     const history = useHistory()
     const handleSubmit= async e=> {
         e.preventDefault()
-        const url = `/search/${city?city:ciudad}`+`&precio1=${precio1}`+
-        `&precio2=${precio2}`+`&fecha_entrada=${fechaEntrada}`+`&fecha_salida=${fechaSalida}`+`&habitaciones=${habitaciones}`+`&baños=${baños}`+`&m2=${m2}`+
-        `&garaje=${garaje? 'si': ''}`+`&jardin=${jardin?'si':''}`+`&ascensor=${ascensor?'si': ''}`+
-        `&balcon=${balcon?'si':''}`
+        const url = `/search/${city?city:ciudad}`
+        +`&precio1=${precio1}`
+        +`&precio2=${precio2}`+`&fecha_entrada=${fechaEntrada}`
+        +`&fecha_salida=${fechaSalida}`
+        +`&habitaciones=${habitaciones}`
+        +`&baños=${baños}`
+        +`&m2=${m2}`
+        +`&garaje=${garaje? 'si': ''}`
+        +`&jardin=${jardin?'si':''}`
+        +`&ascensor=${ascensor?'si': ''}`
+        +`&balcon=${balcon?'si':''}`
 
         //const res = await fetch(url)
         //const result = await res.json()
         //setResults(result)
         history.push(url)
     }
-
     
-    console.log(data)
 
-    const paginatedData1 = data ? data.slice(3*(page-1),page*3) : []
-    const max1 = data ? Math.ceil(data.length/3) : []
 
-    const paginatedData = results ? results.slice(3*(page-1),3*page) : []
-    const max = results ? Math.ceil(results.length/3) : []
+    const paginatedData = data ? data.slice(3*(page-1),page*3) : []
+    const max = data ? Math.ceil(data.length/3) : []
+
 
     return(
         <div className='search-page'>
@@ -110,7 +114,7 @@ function Search({data}) {
                 </form>
             </div>
             <div className='search-result'>
-                {!results&&data&&paginatedData1.map(r=>
+                {data&&paginatedData.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
                     <div className='result-image'
                         style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
@@ -122,32 +126,13 @@ function Search({data}) {
                     </article>  
                 </Link>
             )}
-                {!results&&data&&
+                {data&&
                 <div className='pagination'>
-                    <span className='goback' onClick={()=>setPage(page>1? page-1:1)}><div className='goback'/></span>
-                    <span>{page} de {max1}</span>
-                    <span className='next' onClick={()=>setPage(page<max1 ? page+1:max)}><div className='next'/></span>
+                    <span className='goback' onClick={()=>setPage(page>1? page-1:1)}><div/></span>
+                    <span>{page}/{max}</span>
+                    <span className='next' onClick={()=>setPage(page<max ? page+1:max)}><div/></span>
                 </div>}
             </div>
-            <div>
-                {results&&paginatedData.map(r=>
-                <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
-                    <div className='result-image'
-                        style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
-                     <article className='result-home'>
-                        <h3>{r.precio_piso}€</h3>
-                        <p>{r.habitaciones} habs. | {r.baños} baños | {r.m2} m2 </p>
-                        <p>{r.direccion}</p>
-                    </article>  
-                </Link>
-            )}
-                {results&&
-                <div className='pagination'>
-                    <span onClick={()=>setPage(page>1? page-1:1)}><div className='goback'/></span>
-                    <span>{page} de {max}</span>
-                    <span onClick={()=>setPage(page<max ? page+1:max)}><div className='next'/></span>
-                </div> }
-            </div>   
         </div>
     )
 }

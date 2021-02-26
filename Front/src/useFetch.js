@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 function useFetch(url,key) {
-  console.log(url)
+  
     const [data, setData] = useState()
     const login = useSelector(s=>s.login)
     useEffect(() => {
@@ -16,6 +16,7 @@ function useFetch(url,key) {
           setData(data)
         })
     }, [url,key,login])
+    console.log(url)
     return data
 }
 

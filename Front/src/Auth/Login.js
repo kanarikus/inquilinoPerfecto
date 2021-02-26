@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import {useDispatch,useSelector} from 'react-redux'
+import './Login.css'
 
 function Login () {
     const [email,setEmail] = useState('')
@@ -10,9 +11,11 @@ function Login () {
     const login = useSelector(s=>s.login)
     const dispatch = useDispatch()
 
+
     const handleSubmit = async e =>{
         e.preventDefault()
         try {
+
             const res = await fetch('http://localhost:9999/login',{
             headers:{'Content-Type':'application/json'},
             body: JSON.stringify({email,password}),
@@ -30,30 +33,37 @@ function Login () {
     if(login) return <Redirect to="/"/>
 
     return(
-        <form onSubmit={handleSubmit}>
-            <h3>Iniciar sesión :D</h3>
-            <label>
-                email:
+        <form onSubmit={handleSubmit} className='login-container'>
+            <h3><b>Iniciar sesión</b></h3>
+            <p>Si ya tienes una cuenta inicia sesión</p>
+            <div className='input-container'>
+               <label>
+                    email:
+                </label>
                 <input value={email}
-                required
-                type='email'
-                onChange = {e=>setEmail(e.target.value)}/>
-            </label>
-            <label>
-                Contraseña:
+                    required
+                    placeholder='introduce tu email....'
+                    type='email'
+                    onChange = {e=>setEmail(e.target.value)}/>
+                <label>
+                    Contraseña:
+                </label> 
                 <input value={password}
-                required
-                type='password'
-                onChange = {e => setPassword(e.target.value)}/>
-            </label>
+                    required
+                    placeholder='Introduce tu contraseña...'
+                    type='password'
+                    onChange = {e => setPassword(e.target.value)}/>
+            </div>
+            
             <button >Log in</button>
             {error&&
                 <div>
                     Usuario o contraseña incorrecto
                 </div>
             }
-            <div>
+            <div className='link-div'>
                 <Link to="/recovery">No recuerdas tu contraseña?</Link>
+                <Link to='/register'>No tienes cuenta?</Link>
             </div>
         </form>
     )

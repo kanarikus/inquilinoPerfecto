@@ -62,7 +62,7 @@ function Vivienda({data}) {
                             <li className='ascensor-container'><div className='ascensor'/>{d.ascensor}</li>
                             <li className='balcon-container'><div className='balcon'/>{d.balcon}</li>
                         </ul>
-                        <Rating value={d.score_piso}/>
+                            <Rating value={d.score_piso}/>
                             <div className='owner'>Este piso pertenece a:<br/><Link to={`/user/profile/${d.id_usuario}`}>{d.nombre}</Link></div>
                     </div>
                 </div>    

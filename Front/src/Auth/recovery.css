@@ -1,0 +1,53 @@
+.pass-recovery{
+    font-family: 'quicksandlight';
+    width: 400px;
+    height: 200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.pass-recovery button{
+    height: 30px;
+    border-radius: 10px;
+    background: yellow;
+    transition: 0.2s ease;
+}
+.pass-recovery button:hover{
+cursor: pointer;
+transform: scale(1.2);
+}
+
+.mailsended-container{
+    font-family: 'quicksandlight';
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+.mail-sended{
+    background-image: url('../front-images/mailgif.gif');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 200px;
+    width: 200px;
+    margin: auto;
+}
+
+.password-reset{
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    margin: auto;
+    font-family: 'quicksandlight';
+    margin-top: 30px;
+}
+
+.password-reset button:hover{
+    background: yellow;
+    cursor: pointer;
+}

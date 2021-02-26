@@ -1,4 +1,5 @@
 import {useState} from 'react'
+import './recovery.css'
 
 function Recovery() {
     const [email,setEmail] = useState('')
@@ -14,19 +15,20 @@ function Recovery() {
         setSent(true)
     }
     if(sent) return(
-        <div>
-            Mira tu email para recuperar tu contraseña pendejo
+        <div className='mailsended-container'>
+            <h4>Revisa tu email para recuperar la contraseña</h4>
+            <div className='mail-sended'/>
         </div>
     )
 
     return(
-        <form className='pass recovery' onSubmit={handleSubmit}>
-            Introduce tu email para recuperar contraseña
-            <div>
-                <input placeholder="Email..." type='email' required
+        <form className='pass-recovery' onSubmit={handleSubmit}>
+            <h3>Introduce tu email para recuperar contraseña</h3>
+            <input placeholder="Email..." type='email' required
                 value={email} onChange={e=>setEmail(e.target.value)}/>
-                <button>Recuperar contraseña</button>
-            </div>
+            <button>Recuperar contraseña</button>
+            <div className='spinner-login'/>
+
         </form>
     )
 }
