@@ -96,7 +96,7 @@ app.delete('/vivienda/:id',isSameUser,homeOwner,deleteHome)
 app.put('/vivienda/:id',isAuthenticated,homeOwner,updateHome)
 
 app.post('/vivienda/reserva/:id',booking)
-app.delete('/reserva/:id',deletebooking)
+app.delete('/reserva/:id',isAuthenticated,isSameUser,deletebooking)
 app.get('/reserva',isAuthenticated,isSameUser,getListOfBooking)
 app.get('/reserva/:id',sameBookin,getBooking)
 app.get('/vivienda/reserva/:id',homeBookings)

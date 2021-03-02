@@ -199,6 +199,7 @@ const getHome = async(id) => {
     p.latitude,
     p.longitude,
     u.nombre,
+    count(r.score_piso) "count_score",
     avg(r.score_piso) "score_piso" FROM piso p left join reserva r on p.id=r.id_piso right join usuario u on p.id_usuario=u.id where p.id=?`
     const params = [id]
     const result = await performQuery(query,params)
@@ -428,6 +429,7 @@ const homeBookings = async(id) => {
     const query = `SELECT r.id_reserva,
     u.nombre,
 	u.email,
+    u.id,
     r.fecha_reserva,
     r.fecha_entrada,
     r.fecha_salida,
