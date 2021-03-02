@@ -8,7 +8,8 @@ import './home.css'
 
 function HomeWrapper () {
     const {id} = useParams()
-    const data = useFetch('http://localhost:9999/vivienda/'+`${id}`)
+    const data = useFetch('http://localhost:9999/vivienda/'
+    +`${id}`)
     console.log(data)
     return data ? <Vivienda data={data}/> : false
 }
@@ -25,8 +26,8 @@ function Vivienda({data}) {
     const handleSubmit = async e=> {
         
         e.preventDefault()
-        const headers = {'Content-Type':'application/json'}
-        if(login) headers ['Authorization'] = login.token
+        const headers ={'Content-Type':'application/json'}
+        if(login) headers['Authorization'] = login.token
         const res = await fetch(`http://localhost:9999/vivienda/reserva/${id}`,{
             method:'POST',
             headers,
@@ -80,9 +81,9 @@ function Vivienda({data}) {
             {error&&
                 <div>No se puede reservar en estas fechas</div>}
             <div className='map-container'>
-               <Route>
-                <Map id={id}/>
-            </Route> 
+                <Route>
+                    <Map id={id}/>
+                </Route> 
             </div>
             
             

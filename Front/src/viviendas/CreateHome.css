@@ -66,3 +66,32 @@
     padding: 15px;
     background: rgb(160, 159, 159);
 }
+
+@media screen and (max-width:600px) {
+    .create-form{
+        width: 75vw;
+        margin-bottom: 5vh;
+    }
+    .create-home{
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        height: 120vh;
+        padding-top: 5vh;
+        margin-top: 10vh;
+    }
+    .createhome-page{
+        height: 160vh;
+    }
+    .create-form input:not([type=checkbox]){
+        width: fit-content;
+    }
+    .create-form textarea{
+        width: 60vw;
+    }
+    .create-map{
+        width: 80vw;
+        height: 50vh;
+        height: fit-content;
+    }
+}

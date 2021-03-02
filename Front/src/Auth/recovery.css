@@ -51,3 +51,11 @@ transform: scale(1.2);
     background: yellow;
     cursor: pointer;
 }
+@media screen and (max-width:600px){
+    .pass-recovery{
+        width: 85vw;
+    }
+    .password-reset{
+        margin: 0;
+    }
+}

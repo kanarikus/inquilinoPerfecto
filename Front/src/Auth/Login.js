@@ -24,9 +24,12 @@ function Login () {
             const data = await res.json()
             dispatch({type:'login',data})
             console.log(data)
+            if(!res){
+                setError(true)
+            }
         }catch(e) {
             console.warn(e)
-            setError(true)
+            
         }
         
     }
@@ -54,7 +57,11 @@ function Login () {
                     type='password'
                     onChange = {e => setPassword(e.target.value)}/>
             </div>
-            
+            {error&&
+                <div>
+                    Usuario o contraseña incorrecto
+                </div>
+            }
             <button >Log in</button>
             {error&&
                 <div>

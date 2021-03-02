@@ -9,7 +9,6 @@ const queryString = require('query-string')
 
 function SearchWrapper() {
     const {ciudad} = useParams()
-    console.log('hola')
     const parsed = queryString.parse(window.location.search)
     const stringified = queryString.stringify(parsed)
     const data = useFetch('http://localhost:9999/vivienda/busqueda?'
@@ -49,7 +48,8 @@ function Search({data}) {
         e.preventDefault()
         const url = `/search/${city?city:ciudad}`
         +`&precio1=${precio1}`
-        +`&precio2=${precio2}`+`&fecha_entrada=${fechaEntrada}`
+        +`&precio2=${precio2}`
+        +`&fecha_entrada=${fechaEntrada}`
         +`&fecha_salida=${fechaSalida}`
         +`&habitaciones=${habitaciones}`
         +`&baños=${baños}`
@@ -75,25 +75,25 @@ function Search({data}) {
         <div className='search-page'>
             <div className='search-form'>
                 <form className='main-form' onSubmit={handleSubmit}>
-                    <input name='ciudad' placeholder={ciudad} value={city} onChange={e=>setCity(e.target.value)}/>
-                    <input placeholder='Precio Mínimo'value={precio1} onChange={e=>setPrecio1(e.target.value)}/>
-                    <input placeholder='Precio Máximo' value={precio2} onChange={e=>setPrecio2(e.target.value)}/>
-                    <input type='date' value={fechaEntrada} onChange={e=>setFechaentrada(e.target.value)}/>
-                    <input type='date' value={fechaSalida} onChange={e=>setFechasalida(e.target.value)}/>
-                    <select value={habitaciones} onChange={e=>setHabitaciones(e.target.value)}>
+                    <input className='form-ciudad' name='ciudad' placeholder={ciudad} value={city} onChange={e=>setCity(e.target.value)}/>
+                    <input className='form-precio1' placeholder='Precio Mínimo'value={precio1} onChange={e=>setPrecio1(e.target.value)}/>
+                    <input className='form-precio2' placeholder='Precio Máximo' value={precio2} onChange={e=>setPrecio2(e.target.value)}/>
+                    <input className='form-checkin' type='date' value={fechaEntrada} onChange={e=>setFechaentrada(e.target.value)}/>
+                    <input className='form-checkout' type='date' value={fechaSalida} onChange={e=>setFechasalida(e.target.value)}/>
+                    <select className='form-rooms' value={habitaciones} onChange={e=>setHabitaciones(e.target.value)}>
                         <option value='' hidden>habitaciones</option>
                         <option value={1}>1+</option>
                         <option value={2}>2+</option>
                         <option value={3}>3+</option>
                         <option value={4}>4+</option>
                     </select>
-                    <select value={baños} onChange={e=> setBaños(e.target.value)}>
+                    <select className='form-baths' value={baños} onChange={e=> setBaños(e.target.value)}>
                         <option>baños</option>
                         <option value={1}>1+</option>
                         <option value={2}>2+</option>
                         <option value={3}>3+</option>
                     </select>
-                    <select value={m2} onChange={e=>setM2(e.target.value)}>
+                    <select className='form-m2' value={m2} onChange={e=>setM2(e.target.value)}>
                         <option value='' hidden>m2</option>
                         <option value={50}>50+</option>
                         <option value={200}>200+</option>
@@ -117,7 +117,9 @@ function Search({data}) {
                 {data&&paginatedData.map(r=>
                 <Link key={r.id} className='viviendas' to={`/vivienda/${r.id}`}>
                     <div className='result-image'
-                        style={r.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${r.image}.jpg`+')'}}/>
+                        style={r.image&&{backgroundImage:'url('
+                        +`http://localhost:9999/imagen/${r.image}.jpg`
+                        +')'}}/>
                     <article className='result-home'>
                         <h3>{r.precio_piso}€</h3>
                         <p>{r.habitaciones}habs. | {r.baños}baños | {r.m2}m2 </p>

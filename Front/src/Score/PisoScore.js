@@ -8,7 +8,8 @@ const PisoScore=({previousScore, id}) =>{
     const [rating,setRating] = useState(previousScore)
     const handleScore = rating=>{
         setRating(rating)
-        fetch('http://localhost:9999/reserva/'+`${id}`,{
+        fetch('http://localhost:9999/reserva/'
+        +`${id}`,{
             method:'PUT',
             headers:{
                 'Authorization': login.token,

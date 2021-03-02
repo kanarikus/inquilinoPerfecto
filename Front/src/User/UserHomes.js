@@ -6,7 +6,8 @@ import './UserHomes.css'
 
 function UserHomes() {
     const {id} = useParams()
-    const data = useFetch('http://localhost:9999/usuario/vivienda/'+`${id}`)
+    const data = useFetch('http://localhost:9999/usuario/vivienda/'
+    +`${id}`)
     
 
     const [page,setPage] = useState(1)

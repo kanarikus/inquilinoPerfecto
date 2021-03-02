@@ -20,7 +20,7 @@
     width: 150px;
     border-radius: 7px;
     padding: 10px;
-    z-index: 2;
+    z-index: 5;
 }
 
 .dropdown a{
@@ -30,4 +30,11 @@
 .dropdown div {
     cursor: pointer;
     color: red;
+}
+
+@media screen and (max-width:600px){
+    .dropdown{
+        position: fixed;
+        z-index: 5;
+    }
 }

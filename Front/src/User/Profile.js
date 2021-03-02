@@ -29,7 +29,7 @@ function Profile() {
                 <span><b>Ciudad:<br/></b>  {data.ciudad}</span>
                 <span><b>Provincia:<br/></b>  {data.Provincia}</span>
                 <span><b>Telf: <br/></b> {data.telf}</span>
-                <span><b>sobre mi:<br/></b> {data.descripcion}</span>
+                <span className='about-me'><b>sobre mi:<br/></b> {data.descripcion}</span>
                 <span><b>Valoración media<br/></b><br/>({data.count_usuario})<Rating value={data.score_usuario}/></span>
                 {data.id===login.id?<button onClick={handleProfile}><div className='edit-profile'/></button>:
                 <div/>}

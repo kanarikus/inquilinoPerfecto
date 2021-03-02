@@ -78,7 +78,6 @@
     width: 80px;
     background-size: cover;
     margin: auto;
-    /* background-image: url(); */
 }
 
 .image-preview{
@@ -86,4 +85,17 @@
     width: 150px;
     background-size: cover;
     margin: auto;
+}
+
+@media screen and (max-width:400px){
+    .main-updateuser h2{
+        margin: 5px auto 5px;
+    }
+    .updateuser-form{
+        width: 75vw;
+        height: 110vh;
+    }
+    .mydescription{
+        max-width: 65vw;
+    }
 }

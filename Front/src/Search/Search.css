@@ -104,3 +104,44 @@
     width: 20px;
     margin-right: 10px;
 }
+
+@media screen and (max-width:600px) {
+    .main-form{
+        position: absolute;
+        left: 0;
+        top: 6.2vh;
+        border-radius: 0;
+        box-shadow: none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        height: 10vh;
+        width: fit-content;
+        z-index: 0;
+    }
+    .main-form button{
+        
+    }
+    .form-precio1{
+        width: 10vw;
+    }
+    .form-precio2{
+        width: 10vw;
+    }
+    .form-checkin{
+        width: 10vw;
+    }
+    .form-checkout{
+        width: 10vw;
+    }
+
+    .search-result{
+        margin-top: 10vh;
+    }
+    .search-result a{
+        max-width: none;
+        width: 90vw;
+        text-align: center;
+        margin: auto;
+    }
+}

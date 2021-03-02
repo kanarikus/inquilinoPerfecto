@@ -62,3 +62,17 @@
     border: none;
     box-shadow: 3px 3px 5px;
 }
+
+@media screen and (max-width:600px){
+    .main-listhomes{
+        height: fit-content;
+        width: 80vw;
+    }
+    #listhome{
+        height: 40vh;
+        flex-direction: column;
+    }
+    .myhomes-image{
+        background-position: center;
+    }
+}

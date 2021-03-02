@@ -1,13 +1,19 @@
-
-.homebooking-contain{
+.homebooking-container{
+    box-shadow: 4px 4px 6px;
     background: rgb(221,221,221);
     background: radial-gradient(circle, rgba(221,221,221,1) 20%, rgba(139,138,138,1) 70%, rgba(46,46,46,1) 95%);
+    padding: 10px;
+    border-radius: 10px;
+}
+
+
+.homebooking-contain{
+    background: rgb(160, 159, 159);
     border: 1px solid black;
     border-radius: 10px;
     box-shadow: 3px 3px 10px black;
     margin: 20px 20px;
     width: 40vw;
-    text-transform: capitalize;
 }
 .homebooking-contain a {
     text-decoration: none;
@@ -41,4 +47,24 @@
     margin-bottom: 5px;
     width: 15vw;
     padding: 5px;
+}
+
+@media screen and (max-width:600px) {
+    .homebooking-container {
+        height: fit-content;
+        width: 85vw;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .homebooking-contain{
+        width: 70vw;
+    }
+    .aceptado{
+        width: 30vw;
+    }
+    .declinado{
+        width: 30vw;
+    }
 }

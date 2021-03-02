@@ -228,3 +228,36 @@
     flex-direction: column;
     align-content: center;
 }
+.map-container{
+    margin-bottom: 10px;
+}
+@media screen and (max-width:600px) {
+    .homedata{
+        width: 85vw;
+        height: fit-content;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+
+    }
+    .home-contain{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        height: fit-content;
+    }
+    .homeimage{
+        margin: 0;
+        height: 50vh;
+    }
+    .homedata-form{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        width: 40vw;
+        height: 15vh;
+    }
+}

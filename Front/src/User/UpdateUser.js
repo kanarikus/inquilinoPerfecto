@@ -102,9 +102,10 @@ function UpdateUser({ data }) {
                     onChange={e=>setTelf(e.target.value)}
                     />
                 </label>
-                <label>
+                <label >
                     <span>Descripción:</span><br/>
                     <textarea
+                    className='mydescription'
                     cols="50" rows="8"
                     value={descripcion}
                     onChange={e=>setDescripcion(e.target.value)}

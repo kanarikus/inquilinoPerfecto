@@ -91,3 +91,24 @@ textarea{
 .uploadimage-home{
     display:none;
 }
+@media screen and (max-width:600px) {
+    .form-container{
+        width: 80vw;
+        height: fit-content;
+    }
+    .homendbookings{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-evenly;
+    }
+    .form-container input:not([type=checkbox]){
+        width: 60vw;
+    }
+    .descripcion-update{
+        width: 75vw;
+    }
+    .updatehome-image{
+        height: 18vh
+    }
+}

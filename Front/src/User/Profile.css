@@ -58,3 +58,22 @@
     cursor: pointer;
     transform: scale(1.2);
 }
+
+
+@media screen and (max-width:600px) {
+  .main-profile{
+      flex-direction: column;
+  }
+  .profile-container{
+     margin: auto;
+     margin-top: 3vh;
+     width: 75vw;
+  }
+  .about-me{
+      max-width: fit-content;
+  }
+  .tabs-container{
+      margin-left: 15px;
+      height: fit-content;
+  }
+}

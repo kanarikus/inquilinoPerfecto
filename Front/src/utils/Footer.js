@@ -1,19 +1,24 @@
-import { Link } from 'react-router-dom'
 import './footer.css'
 
 function Footer(){
     return(
         <section className='footer-container'>
-            <article>
-                <h2><Link to='www.hithub.com'>Antonio Pires</Link></h2>
-                <main>
-                    <a href='https://twitter.com' target='_blank'></a>
+            <article className='social-container'>
+                <h2><a href='https://github.com/kanarikus/inquilinoPerfecto'>Antonio Pires</a></h2>
+                <main className='social-links'>
+                    <a className='twitter' href='https://twitter.com'/>
+                    <a className='facebook' href='https://es-es.facebook.com/'/>
+                    <a className='linkedin' href='https://www.linkedin.com/in/antonio-pires-abad-649307b3/'/>
+                    <a className='youtube' href='https://www.youtube.com/'/>
+                    <a className='github' href='https://github.com/kanarikus/inquilinoPerfecto'/>
+                    <a className='instagram' href='https://www.instagram.com/?hl=es'/>
                 </main>
             </article>
-            <div>
+            <div className='lafoto'/>
+            <div className='message'>
                 Este es mi primer proyecto realizado 
                 tras cursar el bootcamp en Hack a Boss 
-                y en colaboración con <a href>Andrés Sierra Cardalda</a>
+                y en colaboración con <a href='https://www.linkedin.com/in/andr%C3%A9s-sierra-cardalda-09a8b655/' target='-blank'>Andrés Sierra Cardalda</a>
             </div>
         </section>
     )

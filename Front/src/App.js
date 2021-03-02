@@ -78,7 +78,9 @@ function App() {
           <GetBooking/>
         </Route>
         <Route path='/user/profile/:id'>
-          <Profile/>
+          <ErrorBoundary>
+            <Profile/>
+          </ErrorBoundary>
         </Route>
       </Switch>
       <Footer/>

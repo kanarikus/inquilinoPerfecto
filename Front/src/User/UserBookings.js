@@ -18,8 +18,8 @@ function UserBookings() {
         throw new Error()
     }
 
-    const paginatedData = data ? data.slice(3*(page-1),page*3) : []
-    const max = data ? Math.ceil(data.length/3) : []
+    const paginatedData = data ? data.slice(2*(page-1),page*2) : []
+    const max = data ? Math.ceil(data.length/2) : []
 
     return(
         <div className='bookings-container'>
@@ -28,10 +28,12 @@ function UserBookings() {
                 <Link to={`/booking/${d.id_reserva}`}>
                 <div className='list-bookings'>
                     {d.image?<div className='myhomes-image'
-                    style={d.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${d.image}.jpg`+')'}}/>:
+                    style={d.image&&{backgroundImage:'url('
+                    +`http://localhost:9999/imagen/${d.image}.jpg`
+                    +')'}}/>:
                     ''}
                     
-                    <section>
+                    <section className='bookingdata'>
                         <h3>Reservado el día {moment(d.fecha_reserva).format('DD-MM-YYYY')}</h3>
                         <p>en {d.ciudad}</p>
                         <p>Precio:{d.precio_reserva}€</p>

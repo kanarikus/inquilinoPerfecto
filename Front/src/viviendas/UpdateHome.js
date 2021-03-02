@@ -85,7 +85,9 @@ function UpdateHome({data}) {
                 <h1>Mi piso</h1>
                 {preview?<div className='image-preview' style={{backgroundImage: `url(${preview})`}}/>:
                     <div className='updatehome-image'
-                    style={data.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${data.image}.jpg`+')'}}/>}
+                    style={data.image&&{backgroundImage:'url('
+                    +`http://localhost:9999/imagen/${data.image}.jpg`
+                    +')'}}/>}
                 <input ref={refa} name='avatar' onChange={handlePreview} className='uploadimage-home' type='file' accept='image/*'/>
                 <div className='upload-image' onClick={handlePhoto}/>
                 <label>
@@ -127,7 +129,7 @@ function UpdateHome({data}) {
                     
                 </div>
                 <label>Descripción</label>
-                <textarea cols="50" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
+                <textarea className='descripcion-update' cols="50" rows="10" value={descripcion} onChange={e=>setDescripcion(e.target.value)}/>
                 <button ref={ref} onChange={handleSubmit}></button>
                 <div className='savebutton' onClick={handlePick}/>
             </form>}

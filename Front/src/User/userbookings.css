@@ -36,3 +36,21 @@
     border: 1px solid black;
     background: rgb(160, 159, 159);
 }
+
+.bookingdata{
+    text-align: left;
+}
+
+@media screen and (max-width:600px){
+    .bookings-container{
+        height: 80vh;
+        width: 80vw;
+    }
+    .list-bookings{
+        height: 40vh;
+        flex-direction: column;
+    }
+    .bookingdata{
+        text-align: center;
+    }
+}

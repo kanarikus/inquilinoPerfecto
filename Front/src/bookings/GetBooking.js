@@ -7,7 +7,8 @@ const moment = require('moment')
 
 function GetBookingWrapper() {
     const {id} = useParams()
-    const data = useFetch('http://localhost:9999/reserva/'+`${id}`) || []
+    const data = useFetch('http://localhost:9999/reserva/'
+    +`${id}`) || []
     console.log(data)
     return data ? <GetBooking data={data}/> : false
 }
@@ -29,14 +30,16 @@ function GetBooking ({data}) {
             {data.map(d=>
                 <div key={d.id} className='booking-container'>
                     <div className='booking-image'
-                    style={d.image&&{backgroundImage:'url('+`http://localhost:9999/imagen/${d.image}.jpg`+')'}}/>
+                    style={d.image&&{backgroundImage:'url('
+                    +`http://localhost:9999/imagen/${d.image}.jpg`
+                    +')'}}/>
                     <section className='booking-info'>
                         <h2>{d.ciudad}</h2>
                         <h3><b>{d.precio_reserva}€</b></h3>
                         <p>Dirección<br/><b>{d.direccion}</b></p>
                         <p>CheckIn:<br/><b>{moment(d.fecha_entrada).format('DD-MM-YYYY')}</b></p>
                         <p>CheckOut:<br/><b>{moment(d.fecha_salida).format('DD-MM-YYYY')}</b></p>
-                        <p>Estado de la reserva:<b>{d.estado}</b></p>
+                        <p>Estado de la reserva:<br/><b>{d.estado}</b></p>
                         {d.estado==='aceptado'?<p >Puntua el piso:<PisoScore previousScore={d.score_piso}id={id}/></p>:
                         <div/>}
                     </section>

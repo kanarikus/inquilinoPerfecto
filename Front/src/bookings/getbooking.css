@@ -56,3 +56,25 @@
     border: none;
     box-shadow: 3px 3px 5px;
 }
+
+@media screen and (max-width:600px) {
+    .booking-container{
+        height: 90vh;
+        width: 80vw;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+    }
+    .booking-info{
+        text-align: center;
+    }
+    .buttons{
+        width: 40vw;
+        height: 10vh;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    .booking-moreinfo{
+        background: rgba(255, 255, 255, 0.432);
+    }
+}

@@ -65,3 +65,9 @@
         transform: rotateY(360deg)
     }
 }
+
+@media screen and (max-width:600px){
+    .login-container{
+        width: 85vw;
+    }
+}

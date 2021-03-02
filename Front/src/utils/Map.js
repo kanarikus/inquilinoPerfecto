@@ -1,9 +1,10 @@
-import {MapContainer,Marker,TileLayer,Popup} from 'react-leaflet'
+import {MapContainer,Marker,TileLayer} from 'react-leaflet'
 import './Map.css'
 import useFetch from '../useFetch'
 
 function MapWrapper({id}) {
-    const data = useFetch('http://localhost:9999/vivienda/'+`${id}`)
+    const data = useFetch('http://localhost:9999/vivienda/'
+    +`${id}`)
     console.log(data)
     return data ? <Map data={data[0]}/>:false
 }

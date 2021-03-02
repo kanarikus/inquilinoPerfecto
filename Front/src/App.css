@@ -113,3 +113,14 @@ textarea{
   background-size: cover;
   margin: auto;
 }
+
+@media screen and (max-width:600px) {
+  .page{
+    min-height: 100vh;
+    height: max-content;
+    padding-bottom: 5vh;
+  }
+  .app{
+    max-width: 400px
+  }
+}
